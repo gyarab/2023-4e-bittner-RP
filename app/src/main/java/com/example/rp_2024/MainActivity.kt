@@ -16,8 +16,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.toLowerCase
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.rp_2024.ui.theme.RP_2024Theme
+import java.util.Locale
 
 class MainActivity : ComponentActivity() , View.OnClickListener {
 
@@ -45,14 +47,27 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
             if (hasFocus){
 
             } else {
-                vypisPosunutou()
+                var p = 0
+
+                if(posun.text == null){
+                    p = 0
+                } else {
+                    p = posun.text.toString().toInt()
+                }
+                vypisPosunutou(p)
             }
 
 
         }
 
         smer.setOnCheckedChangeListener { _, isChecked ->
-            vypisPosunutou()
+            var p = 0
+            if(posun.text == null){
+                p = 0
+            } else {
+                p = posun.text.toString().toInt()
+            }
+            vypisPosunutou(p)
         }
 
         /*  setContent {
@@ -66,45 +81,53 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
 
     }
     override fun onClick(v : View?) {
-        var p = posun.text.toString().toInt()
-        var t = text.text.toString()
-
-        vypisPosunutou()
+        var p = 0
+        var t = ""
+        if(posun.text == null){
+             p = 0
+        } else {
+             p = posun.text.toString().toInt()
+        }
+        if(text.text == null){
+             t = ""
+        } else {
+             t = text.text.toString()
+        }
+        vypisPosunutou(p)
         vysledek.text = posun(t, p);
     }
 
-    fun vypisPosunutou (){
+    fun vypisPosunutou (p: Int){
+
         if(posun.text != null && posun.text.toString() != "") {
             a.text = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
-            ap.text = posun(
-                "a b c d e f g h i j k l m n o p q r s t u v w x y z",
-                posun.text.toString().toInt()
-            )
+            ap.text = posun("a b c d e f g h i j k l m n o p q r s t u v w x y z", p)
         } else {
             a.text = ""
             ap.text = ""
         }
     }
-    fun posun(t: String, p: Int): String {
+    fun posun(s: String, p: Int): String {
         var alphabet = "abcdefghijklmnopqrstuvwxyz"
-
+        var t = s
         var result = ""
-        t.forEach { it.lowercaseChar() }
-        t.replace('á', 'a', ignoreCase = true)
-        t.replace('é', 'e', ignoreCase = true)
-        t.replace('í', 'i', ignoreCase = true)
-        t.replace('ó', 'o', ignoreCase = true)
-        t.replace('ú', 'u', ignoreCase = true)
-        t.replace('ů', 'u', ignoreCase = true)
-        t.replace('ý', 'y', ignoreCase = true)
-        t.replace('ž', 'z', ignoreCase = true)
-        t.replace('ř', 'r', ignoreCase = true)
-        t.replace('č', 'c', ignoreCase = true)
-        t.replace('š', 's', ignoreCase = true)
-        t.replace('ě', 'e', ignoreCase = true)
-        t.replace('ď', 'd', ignoreCase = true)
-        t.replace('ť', 't', ignoreCase = true)
-        t.replace('ň', 'n', ignoreCase = true)
+
+        t = t.lowercase()
+        t = t.replace('á', 'a', ignoreCase = true)
+        t = t.replace('é', 'e', ignoreCase = true)
+        t = t.replace('í', 'i', ignoreCase = true)
+        t = t.replace('ó', 'o', ignoreCase = true)
+        t = t.replace('ú', 'u', ignoreCase = true)
+        t = t.replace('ů', 'u', ignoreCase = true)
+        t = t.replace('ý', 'y', ignoreCase = true)
+        t = t.replace('ž', 'z', ignoreCase = true)
+        t = t.replace('ř', 'r', ignoreCase = true)
+        t = t.replace('č', 'c', ignoreCase = true)
+        t = t.replace('š', 's', ignoreCase = true)
+        t = t.replace('ě', 'e', ignoreCase = true)
+        t = t.replace('ď', 'd', ignoreCase = true)
+        t = t.replace('ť', 't', ignoreCase = true)
+        t = t.replace('ň', 'n', ignoreCase = true)
         for(ch in t){
             if(!alphabet.contains(ch)){
                 result += ch;

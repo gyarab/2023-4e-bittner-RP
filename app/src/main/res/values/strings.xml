@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RP_2024</string>
+    <string name="open">open menu</string>
+    <string name="close">close menu</string>
 </resources>
