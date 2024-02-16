@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.RP_2024" parent="Theme.MaterialComponents.DayNight.NoActionBar" >
+        <item name="colorPrimary">@color/lighter_hunyadi_yellow</item>
+        <item name="colorPrimaryDark">@color/hunyadi_yellow</item>
+        <item name="colorSecondary">@color/reisin_black</item>
+        <item name="android:background">@color/ghost_white</item>
+        <item name="android:windowBackground">@color/ghost_white</item>
+        <item name="android:colorBackground">@color/ghost_white</item>
+    </style>
+    <style name="Theme.headderBar" parent="Theme.MaterialComponents.DayNight.NoActionBar" >
+        <item name="colorPrimary">@color/ghost_white</item>
+        <item name="colorSecondary">@color/reisin_black</item>
+        <item name="android:background">@color/lighter_hunyadi_yellow</item>
 
-    <style name="Theme.RP_2024" parent="android:Theme.Material.Light.NoActionBar" />
+
+
+
+    </style>
 </resources>

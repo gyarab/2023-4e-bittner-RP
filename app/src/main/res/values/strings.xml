@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">RP_2024</string>
     <string name="open">open menu</string>
-    <string name="close">close menu</string>
+    <string name="close">closed menu</string>
+    <string name="draw_open">Drawer open</string>
+    <string name="draw_close">Drawer closed</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="name">jméno</string>
+    <string name="surname">příjmení</string>
+    <string name="chose_date">vybrat datum narození</string>
+    <string name="swimmer">plavec</string>
+    <string name="save">uložit</string>
 </resources>

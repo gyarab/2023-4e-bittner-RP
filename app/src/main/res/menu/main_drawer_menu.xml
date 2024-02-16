@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/lighter_hunyadi_yellow">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav1"
+            android:icon="@drawable/baseline_more_horiz_24"
+            android:title="Caesarova Šifra" />
+        <item
+            android:id="@+id/nav2"
+            android:icon="@drawable/baseline_miscellaneous_services_24"
+            android:title="Dashboard Activity" />
+        <item
+            android:id="@+id/nav3"
+            android:icon="@drawable/baseline_calendar_month_24"
+            android:title="přidej člena" />
+    </group>
+</menu>

@@ -1,39 +1,37 @@
 package com.example.rp_2024
 
-import android.os.Build
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.toLowerCase
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.rp_2024.ui.theme.RP_2024Theme
-import java.util.Locale
+import com.example.rp_2024.databinding.ActivityCaesarsCipherBinding
 
-class MainActivity : ComponentActivity() , View.OnClickListener {
+class CaesarsCipherActivity : DrawerBaseActivity(), View.OnClickListener {
 
-    lateinit var btn : Button
-    lateinit var text : EditText
-    lateinit var posun : EditText
-    lateinit var vysledek : TextView
-    lateinit var ap : TextView
-    lateinit var a : TextView
+    private lateinit var activityCaesarsCipherBinding : ActivityCaesarsCipherBinding
+    private lateinit var btn : Button
+    private lateinit var text : EditText
+    private lateinit var posun : EditText
+    private lateinit var vysledek : TextView
+    private lateinit var ap : TextView
+    private lateinit var a : TextView
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     lateinit var smer : Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        activityCaesarsCipherBinding = ActivityCaesarsCipherBinding.inflate(layoutInflater)
+
+        setContentView(activityCaesarsCipherBinding.root)
+        allocateActivityTitle("Caesarova Šifra")
+
+
         btn = findViewById(R.id.sifruj)
         text = findViewById(R.id.text)
         posun = findViewById(R.id.posun)
@@ -41,17 +39,26 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
         ap = findViewById(R.id.posunuta)
         a = findViewById(R.id.abeceda)
         smer = findViewById(R.id.smer)
+        if(savedInstanceState == null){
+            text.setText("JE TO NULL")
+        } else {
+            text.setText("NENI TO NULL")
+        }
+        //text.setText(savedInstanceState?.getString("TEXT"))
+        posun.setText(savedInstanceState?.getString("POSUN"))
+        vysledek.text = savedInstanceState?.getString("VYSLEDEK")
+        var p = 0
+        if(posun.text != null && posun.text.toString() != ""){
+            p = posun.text.toString().toInt()
+        }
+        vypisPosunutou(p)
 
         btn.setOnClickListener(this)
         posun.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus){
+            if (!hasFocus){
+                p = 0
 
-            } else {
-                var p = 0
-
-                if(posun.text == null){
-                    p = 0
-                } else {
+                if(posun.text != null && posun.text.toString() != ""){
                     p = posun.text.toString().toInt()
                 }
                 vypisPosunutou(p)
@@ -61,40 +68,53 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
         }
 
         smer.setOnCheckedChangeListener { _, isChecked ->
-            var p = 0
-            if(posun.text == null){
-                p = 0
-            } else {
+            p = 0
+            if(posun.text != null && posun.text.toString() != ""){
                 p = posun.text.toString().toInt()
             }
             vypisPosunutou(p)
         }
 
-        /*  setContent {
-              RP_2024Theme {
-                  // A surface container using the 'background' color from the theme
-                  Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                      Greeting("Android")
-                  }
-              }
-          } */
-
     }
+
+     
+
+    override fun onSaveInstanceState(outState: Bundle) {
+            outState.putString("POSUN", posun.text.toString())
+            outState.putString("TEXT", text.text.toString())
+            outState.putString("VYSLEDEK", vysledek.text.toString())
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        text.setText(savedInstanceState.getString("TEXT"))
+        posun.setText(savedInstanceState.getString("POSUN"))
+        vysledek.text = savedInstanceState.getString("VYSLEDEK")
+        var p = 0
+        if(posun.text != null && posun.text.toString() != ""){
+            p = posun.text.toString().toInt()
+        }
+        vypisPosunutou(p)
+    }
+
+    fun View.hideKeyboard() {
+        val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
+    }
+
     override fun onClick(v : View?) {
+        v?.hideKeyboard()
         var p = 0
         var t = ""
-        if(posun.text == null){
-             p = 0
-        } else {
+        if(posun.text != null && posun.text.toString() != ""){
              p = posun.text.toString().toInt()
         }
-        if(text.text == null){
-             t = ""
-        } else {
+        if(text.text != null && text.text.toString() != ""){
              t = text.text.toString()
         }
         vypisPosunutou(p)
-        vysledek.text = posun(t, p);
+        vysledek.text = posun(t, p)
     }
 
     fun vypisPosunutou (p: Int){
@@ -103,12 +123,12 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
             a.text = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
             ap.text = posun("a b c d e f g h i j k l m n o p q r s t u v w x y z", p)
         } else {
-            a.text = ""
-            ap.text = ""
+            a.text = "a b c d e f g h i j k l m n o p q r s t u v w x y z"
+            ap.text = posun("a b c d e f g h i j k l m n o p q r s t u v w x y z", 0)
         }
     }
     fun posun(s: String, p: Int): String {
-        var alphabet = "abcdefghijklmnopqrstuvwxyz"
+        val alphabet = "abcdefghijklmnopqrstuvwxyz"
         var t = s
         var result = ""
 
@@ -130,7 +150,7 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
         t = t.replace('ň', 'n', ignoreCase = true)
         for(ch in t){
             if(!alphabet.contains(ch)){
-                result += ch;
+                result += ch
             } else {
                 var index = alphabet.indexOf(ch)
                 if(smer.isChecked){
@@ -150,22 +170,7 @@ class MainActivity : ComponentActivity() , View.OnClickListener {
         return result
     }
 
+
+
 }
 
-
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-            text = "Hello $name!",
-            modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    RP_2024Theme {
-        Greeting("Android")
-    }
-}
