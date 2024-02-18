@@ -5,7 +5,7 @@ import com.example.rp_2024.databinding.ActivityDashboardBinding
 
 class DashboardActivity : DrawerBaseActivity() {
 
-    lateinit var activityDashboardBinding : ActivityDashboardBinding
+    private lateinit var activityDashboardBinding : ActivityDashboardBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activityDashboardBinding = ActivityDashboardBinding.inflate(layoutInflater)

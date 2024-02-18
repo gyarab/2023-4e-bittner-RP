@@ -1,4 +1,4 @@
-package com.example.rp_2024
+package com.example.rp_2024.person
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -11,6 +11,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.example.rp_2024.DrawerBaseActivity
+import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.PersonDatabase
 import com.example.rp_2024.databinding.ActivityAddPersonBinding
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package com.example.rp_2024
+package com.example.rp_2024.people
 
 import com.example.rp_2024.databaseStuff.Person
 

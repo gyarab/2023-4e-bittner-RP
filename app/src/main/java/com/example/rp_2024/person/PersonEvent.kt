@@ -1,4 +1,4 @@
-package com.example.rp_2024
+package com.example.rp_2024.person
 
 sealed interface PersonEvent {
     data object SavePerson : PersonEvent

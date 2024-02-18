@@ -1,4 +1,4 @@
-package com.example.rp_2024
+package com.example.rp_2024.person
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
