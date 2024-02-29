@@ -17,7 +17,7 @@ interface PersonDao {
 
 
     @Query("SELECT * FROM person ORDER BY name ASC")
-    fun getOrderedByName(): Flow<List<Person>>
+    fun getOrderedByName(): List<Person>
 
     @Query("SELECT * FROM person ORDER BY surname ASC")
     fun getOrderedBySurname(): Flow<List<Person>>
