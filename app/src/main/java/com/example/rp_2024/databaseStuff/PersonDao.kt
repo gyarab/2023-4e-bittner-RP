@@ -1,5 +1,6 @@
 package com.example.rp_2024.databaseStuff
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
@@ -17,10 +18,10 @@ interface PersonDao {
 
 
     @Query("SELECT * FROM person ORDER BY name ASC")
-    fun getOrderedByName(): List<Person>
+    fun getOrderedByName(): LiveData<List<Person>>
 
     @Query("SELECT * FROM person ORDER BY surname ASC")
-    fun getOrderedBySurname(): Flow<List<Person>>
+    fun getOrderedBySurname(): LiveData<List<Person>>
     @Query("SELECT * FROM person ORDER BY birthdate ASC")
-    fun getOrderedByBirthdate(): Flow<List<Person>>
+    fun getOrderedByBirthdate(): LiveData<List<Person>>
 }
