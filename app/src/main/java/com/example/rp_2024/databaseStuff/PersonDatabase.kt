@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
     version = 1
 )
 abstract class PersonDatabase: RoomDatabase() {
-    abstract fun PersonDao(): PersonDao
+    abstract fun personDao(): PersonDao
 
     //singleton
     companion object {

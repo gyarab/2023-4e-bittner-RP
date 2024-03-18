@@ -10,4 +10,7 @@
     <string name="chose_date">vybrat datum narození</string>
     <string name="swimmer">plavec</string>
     <string name="save">uložit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_people">activity_people</string>
 </resources>
