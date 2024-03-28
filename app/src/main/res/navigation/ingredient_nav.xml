@@ -8,24 +8,24 @@
 
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.example.rp_2024.fragments.Person.PersonListFragment"
+        android:name="com.example.rp_2024.fragments.Ingredient.IngredientListFragment"
         android:label="list"
-        tools:layout="@layout/fragment_person_list" >
+        tools:layout="@layout/fragment_ingredient_list" >
         <action
             android:id="@+id/action_listFragment_to_addFragment"
             app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
-        android:name="com.example.rp_2024.fragments.Person.PersonAddFragment"
+        android:name="com.example.rp_2024.fragments.Ingredient.IngredientAddFragment"
         android:label="add"
-        tools:layout="@layout/fragment_person_add" >
+        tools:layout="@layout/fragment_ingredient_add" >
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
         <argument
-            android:name="currentPerson"
-            app:argType="com.example.rp_2024.databaseStuff.Person"
+            android:name="currentIngredient"
+            app:argType="com.example.rp_2024.databaseStuff.Ingredient"
             android:defaultValue="@null"
             app:nullable="true"/>
     </fragment>
