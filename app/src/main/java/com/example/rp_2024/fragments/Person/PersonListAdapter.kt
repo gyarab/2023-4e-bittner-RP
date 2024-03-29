@@ -30,6 +30,12 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
                 binding.number.text = (position+1).toString()
                 binding.name.text = name
                 binding.surname.text = surname
+
+                if(alias != ""){
+                    binding.alias.text = alias
+                    binding.alias.layoutParams.height = 50
+                }
+
                 val s = status
                 binding.status.text = when(s){
                     0 -> "dítě"

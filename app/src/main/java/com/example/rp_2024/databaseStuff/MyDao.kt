@@ -21,8 +21,32 @@ interface MyDao {
     @Delete
     suspend fun deleteIngredient(ingredient: Ingredient)
 
+    @Upsert
+    suspend fun upsertDish(dish: Dish)
+
+    @Delete
+    suspend fun deleteDish(dish: Dish)
+
+    @Upsert
+    suspend fun upsertRecipeLine(line: RecipeLine)
+
+    @Delete
+    suspend fun deleteRecipeLine(line: RecipeLine)
+
+    @Query("SELECT * FROM dish ORDER BY name")
+    fun getDishesOrderedByName(): LiveData<List<Dish>>
+
+    @Query("SELECT * FROM RecipeLine WHERE dishId = :dishId ORDER BY amount DESC")
+    fun getRecipeLinesForDishByNameLive(dishId: Int): LiveData<List<RecipeLine>>
+
+    @Query("SELECT * FROM RecipeLine WHERE dishId = :dishId ORDER BY amount DESC")
+    fun getRecipeLinesForDishByName(dishId: Int): List<RecipeLine>
+
     @Query("SELECT * FROM ingredient ORDER BY name")
-    fun getIngredientsOrderedByName(): LiveData<List<Ingredient>>
+    fun getIngredientsOrderedByNameLive(): LiveData<List<Ingredient>>
+
+    @Query("SELECT * FROM ingredient ORDER BY name")
+    fun getIngredientsOrderedByName(): List<Ingredient>
 
     @Query("SELECT * FROM person WHERE status<4 ORDER BY name ASC")
     fun getAllOrderedByName(): LiveData<List<Person>>
@@ -41,4 +65,7 @@ interface MyDao {
 
     @Query("SELECT * FROM person WHERE id=:id")
     fun getPerson(id: Int): Person
+
+    @Query("SELECT * FROM ingredient WHERE id=:id")
+    fun getIngredient(id: Int): Ingredient
 }

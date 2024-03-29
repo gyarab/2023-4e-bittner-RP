@@ -53,6 +53,10 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
                 startActivity(Intent(this, PeopleActivity::class.java).apply{})
                 overridePendingTransition(0,0)
             }
+            R.id.nav5 -> {
+                startActivity(Intent(this, DishesActivity::class.java).apply{})
+                overridePendingTransition(0,0)
+            }
         }
 
         return false

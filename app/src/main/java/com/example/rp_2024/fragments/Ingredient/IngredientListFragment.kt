@@ -41,11 +41,11 @@ class IngredientListFragment : Fragment() {
 
 
 
-        viewModel.getIngredientsOrderedByName.observe(viewLifecycleOwner, Observer{ingredient ->
+        viewModel.getIngredientsOrderedByNameLive.observe(viewLifecycleOwner, Observer{ ingredient ->
             adapter.setData(ingredient)
         })
 
-        return binding!!.root
+        return binding.root
     }
 
 }

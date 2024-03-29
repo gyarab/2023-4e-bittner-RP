@@ -68,15 +68,12 @@ class IngredientAddFragment : Fragment() {
     }
 
     private fun writeIngredientInfo(binding: FragmentIngredientAddBinding): Int {
-
             val i: Ingredient = arguments.let { IngredientAddFragmentArgs.fromBundle(it!!).currentIngredient!! }
 
             binding.name.setText(i.name)
             binding.note.setText(i.note)
 
             return i.id
-
-
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -15,6 +15,7 @@ import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databinding.FragmentPersonAddBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
@@ -176,7 +177,8 @@ class PersonAddFragment : Fragment() {
                         mother.id = id
                         viewModel.upsertPerson(mother)
                     }
-                    person.motherId = mother.id
+                    delay(250)
+                    person.motherId = viewModel.getByNameAndSurname(mName, mSurname)[0].id
                 }
             }
             val father = launch {
@@ -191,7 +193,8 @@ class PersonAddFragment : Fragment() {
                         father.id = id
                         viewModel.upsertPerson(father)
                     }
-                    person.fatherId = father.id
+                    delay(250)
+                    person.fatherId = viewModel.getByNameAndSurname(fName, fSurname)[0].id
                 }
             }
             mother.join()

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress NavigationFile -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/person_nav"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.rp_2024.fragments.Dish.DishListFragment"
+        android:label="list"
+        tools:layout="@layout/fragment_dish_list" >
+        <action
+            android:id="@+id/action_listFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.rp_2024.fragments.Dish.DishAddFragment"
+        android:label="add"
+        tools:layout="@layout/fragment_dish_add" >
+        <action
+            android:id="@+id/action_addFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <argument
+            android:name="currentDish"
+            app:argType="com.example.rp_2024.databaseStuff.Dish"
+            android:defaultValue="@null"
+            app:nullable="true"/>
+    </fragment>
+
+</navigation>

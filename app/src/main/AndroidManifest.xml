@@ -22,7 +22,11 @@
             android:exported="false"
             android:label="activity_ingredients"
             android:theme="@style/Theme.RP_2024" />
-
+        <activity
+            android:name=".DishesActivity"
+            android:exported="false"
+            android:label="activity_dishes"
+            android:theme="@style/Theme.RP_2024" />
         <activity
             android:name=".DrawerBaseActivity"
             android:exported="false" />
