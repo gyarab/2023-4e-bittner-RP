@@ -31,7 +31,7 @@
         />
 
     <LinearLayout
-        android:layout_width="90sp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/layout"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent">
     <TextView
         android:id="@+id/name"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="30dp"
         android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/number"
@@ -53,7 +53,7 @@
          />
     <TextView
         android:id="@+id/alias"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:autoSizeTextType="uniform"
         android:text=""
@@ -69,7 +69,7 @@
 
     <TextView
         android:id="@+id/surname"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="30dp"
         android:text="Surname"
         android:autoSizeTextType="uniform"
@@ -83,7 +83,7 @@
          />
     <TextView
         android:id="@+id/status"
-        android:layout_width="70dp"
+        android:layout_width="60dp"
         android:layout_height="30dp"
         android:text="status"
         android:autoSizeTextType="uniform"
@@ -96,28 +96,26 @@
         android:autoSizeMinTextSize="1sp"
         android:autoSizeMaxTextSize="20sp"
         />
-    <ImageButton
-        android:id="@+id/edit"
-        android:layout_width="wrap_content"
+    <RadioGroup
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_edit_24"
-        android:textSize="24sp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radioYes"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            />
+        <RadioButton android:id="@+id/radioNo"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            />
+        <RadioButton android:id="@+id/radio"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            />
+    </RadioGroup>
 
-        />
-    <ImageButton
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_delete_24"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 </LinearLayout>
     <View
         android:layout_width="match_parent"

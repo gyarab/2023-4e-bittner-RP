@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress NavigationFile -->
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/person_nav"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.example.rp_2024.fragments.Event.EventListFragment"
+        android:label="list"
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_listFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.rp_2024.fragments.Event.EventAddFragment"
+        android:label="add"
+        tools:layout="@layout/fragment_event_add" >
+        <action
+            android:id="@+id/action_addFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="currentEvent"
+            app:argType="com.example.rp_2024.databaseStuff.Event"
+            android:defaultValue="@null"
+            app:nullable="true"/>
+        <action
+            android:id="@+id/action_addFragment_to_eventAttendanceFragment"
+            app:destination="@id/eventAttendanceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventAttendanceFragment"
+        android:name="com.example.rp_2024.fragments.Event.EventAttendanceFragment"
+        android:label="fragment_event_attendance"
+        tools:layout="@layout/fragment_event_attendance" >
+        <action
+            android:id="@+id/action_eventAttendanceFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <argument
+            android:name="currentEvent"
+            app:argType="com.example.rp_2024.databaseStuff.Event"
+            android:defaultValue="@null"
+            app:nullable="true"/>
+    </fragment>
+
+</navigation>

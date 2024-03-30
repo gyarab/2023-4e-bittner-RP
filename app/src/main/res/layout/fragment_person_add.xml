@@ -114,7 +114,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Datum narození"
+            android:text="Datum narození:"
             android:layout_marginEnd="20dp"
             android:textColor="@color/reisin_black"
             android:textSize="20sp"
@@ -176,13 +176,30 @@
             />
 
     </LinearLayout>
-
+<LinearLayout
+    android:id="@+id/isiclayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ISIC"
+            android:textSize="24sp"
+            />
+        <CheckBox
+            android:id="@+id/isic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            />
+    </LinearLayout>
     <EditText
         android:id="@+id/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:hint="email"
@@ -282,7 +299,9 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="TextFields" />
+        tools:ignore="TextFields"
+
+        />
 
         <TextView
             android:id="@+id/father"
@@ -356,7 +375,7 @@
         android:text="Uložit"
         android:layout_gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/layout"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="80dp"/>
 
 
     </LinearLayout>

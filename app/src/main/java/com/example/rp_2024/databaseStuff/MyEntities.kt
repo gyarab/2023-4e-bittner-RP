@@ -19,7 +19,8 @@ data class Person(
     var motherId: Int,
     var email: String,
     var phoneNumber: String,
-    var note: String
+    var note: String,
+    var isic: Boolean
 ): Parcelable {
 }
 
@@ -48,4 +49,44 @@ data class RecipeLine(
     var amount: Int,
     var measurement: String
 ): Parcelable{}
+
+@Entity @Parcelize
+data class Event(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var name: String,
+    var start: Long,
+    var end: Long,
+    var adultId: Int,
+    var adminId: Int,
+    var note: String
+): Parcelable{}
+
+@Entity @Parcelize
+data class EventAttendance(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var eventId: Int,
+    var personId: Int,
+    var atends: Boolean
+    ): Parcelable{}
+
+@Entity @Parcelize
+data class EventShoppingLine(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var eventId: Int,
+    var ingredientId: Int,
+    var bought: Boolean
+): Parcelable{}
+
+@Entity @Parcelize
+data class EventDish(
+    @PrimaryKey(autoGenerate = true)
+    var id: Int,
+    var eventId: Int,
+    var dishId: Int,
+): Parcelable{}
+
+
 

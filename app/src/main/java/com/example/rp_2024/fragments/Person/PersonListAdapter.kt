@@ -28,11 +28,11 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
         with(holder){
             with(personList[position]) {
                 binding.number.text = (position+1).toString()
-                binding.name.text = name
-                binding.surname.text = surname
+                binding.name.text = name.replaceFirstChar { name.first().uppercaseChar() }
+                binding.surname.text = surname.replaceFirstChar { surname.first().uppercaseChar() }
 
                 if(alias != ""){
-                    binding.alias.text = alias
+                    binding.alias.text = alias.replaceFirstChar { alias.first().uppercaseChar() }
                     binding.alias.layoutParams.height = 50
                 }
 

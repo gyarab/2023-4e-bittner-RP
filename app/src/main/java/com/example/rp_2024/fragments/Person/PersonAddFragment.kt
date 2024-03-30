@@ -51,11 +51,15 @@ class PersonAddFragment : Fragment() {
             }
         }
 
-        viewModel.upsertPerson(Person(20, "alois", "jirásek", 0, "", 	323087057, -1, -1, "", "", "staré pověsti"))
-        viewModel.upsertPerson(Person(21, "george", "orwell", 3, "", 		454584257, -1, -1, "", "541616158", ""))
-        viewModel.upsertPerson(Person(22, "karel", "mácha", 2, "", 			959505857, -1, -1, "macha@com", "546496158", ""))
-        viewModel.upsertPerson(Person(23, "božena", "němcová", 1, "", 			-618413743, -1, 24, "nemcova@bozena", "543185158", "babička"))
-        viewModel.upsertPerson(Person(24, "Jana", "němcová", 4, "", 			-618413743, -1, -1, "jana@mail", "557465158", "babička"))
+        viewModel.upsertPerson(Person(20, "alois", "jirásek", 0, "", 	323087057, -1, -1, "", "", "staré pověsti", false))
+        viewModel.upsertPerson(Person(21, "george", "orwell", 3, "", 		454584257, -1, -1, "", "541616158", "", false))
+        viewModel.upsertPerson(Person(22, "karel", "mácha", 2, "", 			959505857, -1, -1, "macha@com", "546496158", "", false))
+        viewModel.upsertPerson(Person(23, "božena", "němcová", 1, "", 			-618413743, -1, 24, "nemcova@bozena", "543185158", "babička", false))
+        viewModel.upsertPerson(Person(24, "Jana", "němcová", 4, "", 			-618413743, -1, -1, "jana@mail", "557465158", "babička", false))
+
+        binding.isiclayout.setOnClickListener{
+            binding.isic.isChecked = binding.isic.isChecked.not()
+        }
 
 
         binding.button.setOnClickListener{
@@ -89,13 +93,14 @@ class PersonAddFragment : Fragment() {
                 else -> "dítě"
             }
 
-            val sdf = java.text.SimpleDateFormat("yyyyMMdd")
-            val date = java.util.Date(p.birthdate?.times(1000) ?: (1094853600 * 1000))
+            val sdf = SimpleDateFormat("yyyyMMdd")
+            val date = java.util.Date(p.birthdate)
             val s = sdf.format(date)
             binding.dayPicker.value = s.subSequence(6, 8).toString().toInt()
             binding.monthPicker.value = s.subSequence(4, 6).toString().toInt()
-            binding.monthPicker.value = s.subSequence(0, 4).toString().toInt()
+            binding.yearPicker.value = s.subSequence(0, 4).toString().toInt()
 
+            binding.isic.isChecked = p.isic
             binding.email.setText(p.email)
             binding.phone.setText(p.phoneNumber)
             binding.note.setText(p.note)
@@ -129,6 +134,7 @@ class PersonAddFragment : Fragment() {
         var month = binding.monthPicker.value.toString()
         val year = binding.yearPicker.value.toString()
         val email = binding.email.text.toString()
+        val isic = binding.isic.isChecked
         val phone = binding.phone.text.toString()
         val note = binding.note.text.toString()
         val mName = binding.motherName.text.toString().lowercase()
@@ -148,9 +154,7 @@ class PersonAddFragment : Fragment() {
         }
         val birthdate = day + month + year
         var date = SimpleDateFormat("ddMMyyyy").parse(birthdate)
-        if(date == null){
-            date = SimpleDateFormat("ddMMyyyy").parse("11092004")
-        }
+
         val unixTime = date.time
 
         var stat = 0
@@ -161,7 +165,7 @@ class PersonAddFragment : Fragment() {
             "kmeňák" -> stat = 3
         }
 
-        val person = Person(0, name, surname, stat, alias, unixTime, -1, -1, email, phone, note)
+        val person = Person(0, name, surname, stat, alias, unixTime, -1, -1, email, phone, note, isic)
 
         //uloz matku a otce
         runBlocking {
@@ -169,7 +173,7 @@ class PersonAddFragment : Fragment() {
                 if (mName.isEmpty() && mSurname.isEmpty()) {
                 } else {
                     val m = viewModel.getByNameAndSurname(mName, mSurname)
-                    val mother = Person(0, mName, mSurname, 4, "", 1094853600, -1, -1, mEmail, mPhone, "")
+                    val mother = Person(0, mName, mSurname, 4, "", -1, -1, -1, mEmail, mPhone, "", false)
                     if (m.isEmpty()) {
                         viewModel.upsertPerson(mother)
                     } else {
@@ -185,7 +189,7 @@ class PersonAddFragment : Fragment() {
                 if (fName.isEmpty() && fSurname.isEmpty()) {
                 } else {
                     val f = viewModel.getByNameAndSurname(fName, fSurname)
-                    val father = Person(0, fName, fSurname, 4, "", 1094853600, -1, -1, fEmail, fPhone, "")
+                    val father = Person(0, fName, fSurname, 4, "", -1, -1, -1, fEmail, fPhone, "", false)
                     if (f.isEmpty()) {
                         viewModel.upsertPerson(father)
                     } else {

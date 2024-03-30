@@ -42,7 +42,7 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
                 overridePendingTransition(0,0)
             }
             R.id.nav2 -> {
-                startActivity(Intent(this, DashboardActivity::class.java).apply{})
+                startActivity(Intent(this, EventsActivity::class.java).apply{})
                 overridePendingTransition(0,0)
             }
             R.id.nav3 -> {

@@ -76,7 +76,6 @@ class DishAddFragment : Fragment() {
             recycler.layoutManager = LinearLayoutManager(requireContext())
             adapter.setData(viewModel.getIngredientsOrderedByName)
 
-
         }
 
         binding.floatingActionButton.setOnClickListener{
@@ -93,11 +92,5 @@ class DishAddFragment : Fragment() {
 
         return binding.root
     }
-
-
-
-
-
-
 
 }

@@ -33,6 +33,29 @@ interface MyDao {
     @Delete
     suspend fun deleteRecipeLine(line: RecipeLine)
 
+    @Upsert
+    suspend fun upsertEvent(event: Event)
+
+    @Delete
+    suspend fun deleteEvent(event: Event)
+
+    @Upsert
+    suspend fun upsertEventAttendance(attendance: EventAttendance)
+    @Delete
+    suspend fun deleteEventAttendance(attendance: EventAttendance)
+
+    @Upsert
+    suspend fun upsertEventDish(dish: EventDish)
+
+    @Delete
+    suspend fun deleteEventDish(dish: EventDish)
+
+    @Upsert
+    suspend fun upsertEventShoppingLine(line: EventShoppingLine)
+
+    @Delete
+    suspend fun deleteEventShoppingLine(line: EventShoppingLine)
+
     @Query("SELECT * FROM dish ORDER BY name")
     fun getDishesOrderedByName(): LiveData<List<Dish>>
 
@@ -68,4 +91,23 @@ interface MyDao {
 
     @Query("SELECT * FROM ingredient WHERE id=:id")
     fun getIngredient(id: Int): Ingredient
+
+    @Query("SELECT * FROM event ORDER BY start ASC")
+    fun getEventsOrderedByDateLive(): LiveData<List<Event>>
+
+    @Query("SELECT * FROM EventDish WHERE eventId=:id")
+    fun getEventDishesForEvent(id: Int): List<EventDish>
+
+    @Query("SELECT * FROM eventAttendance WHERE eventId=:id")
+    fun getAttendanceForEvent(id: Int): List<EventAttendance>
+
+    @Query("SELECT * FROM EventShoppingLine WHERE eventId=:id")
+    fun getShoppingLinesForEvent(id: Int): List<EventShoppingLine>
+
+    @Query("SELECT EventAttendance.id, EventAttendance.eventId, EventAttendance.personId, EventAttendance.atends " +
+            "FROM EventAttendance LEFT JOIN Person " +
+            "ON EventAttendance.personId=Person.id " +
+            "WHERE EventAttendance.eventId=:id " +
+            "ORDER BY Person.birthdate ASC")
+    fun getAttendanceOrderedByAgeLive(id: Int): LiveData<List<EventAttendance>>
 }
