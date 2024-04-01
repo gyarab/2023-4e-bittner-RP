@@ -107,7 +107,7 @@ dependencies {
 
     //ui components
     implementation ("io.github.ShawnLin013:number-picker:2.4.13")
-
+    implementation ("androidx.recyclerview:recyclerview:1.3.2")
 
 
 

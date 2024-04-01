@@ -4,15 +4,18 @@ import androidx.lifecycle.LiveData
 
 class MyRepository(private val myDao: MyDao) {
 
+
     val getAllOrderedByName: LiveData<List<Person>> = myDao.getAllOrderedByName()
     val getAllOrderedBySurname: LiveData<List<Person>> = myDao.getAllOrderedBySurname()
     val getAllOrderedByAge: LiveData<List<Person>> = myDao.getAllOrderedByAge()
     val getAll: List<Person> = myDao.getAll()
     val getIngredientsOrderedByNameLive: LiveData<List<Ingredient>> = myDao.getIngredientsOrderedByNameLive()
-    val getDishesOrderedByName: LiveData<List<Dish>> = myDao.getDishesOrderedByName()
+    val getDishesOrderedByNameLive: LiveData<List<Dish>> = myDao.getDishesOrderedByNameLive()
+    val getDishesOrderedByName: List<Dish> = myDao.getDishesOrderedByName()
     val getIngredientsOrderedByName: List<Ingredient> = myDao.getIngredientsOrderedByName()
     val getEventsOrderedByDateLive: LiveData<List<Event>> = myDao.getEventsOrderedByDateLive()
-
+    val getAdultsAndInstruktors: List<Person> = myDao.getAdultsAndInstruktors()
+    val getAdults: List<Person> = myDao.getAdults()
 
     suspend fun upsertPerson (person:Person){
         myDao.upsertPerson(person)
@@ -78,6 +81,10 @@ class MyRepository(private val myDao: MyDao) {
         myDao.deleteEventShoppingLine(line)
     }
 
+    fun deleteEventShoppingLines(id: Int) {
+        myDao.deleteEventShoppingLines(id)
+    }
+
     fun getByNameAndSurname (n: String, sn: String) : List<Person>{
         return myDao.getByNameAndSurname(n, sn)
     }
@@ -86,7 +93,7 @@ class MyRepository(private val myDao: MyDao) {
         return myDao.getRecipeLinesForDishByNameLive(dishId)
     }
 
-    fun getAttendanceOrderedByAgeLive(eventId: Int): LiveData<List<EventAttendance>>{
+    fun getAttendanceOrderedByAgeLive(eventId: Int): LiveData<Map<Person, EventAttendance?>>{
         return myDao.getAttendanceOrderedByAgeLive(eventId)
     }
 
@@ -96,6 +103,10 @@ class MyRepository(private val myDao: MyDao) {
 
     fun getPerson(id: Int): Person{
         return myDao.getPerson(id)
+    }
+
+    fun getPersonLive(id: Int): LiveData<Person?>{
+        return myDao.getPersonLive(id)
     }
 
     fun getIngredient(id: Int): Ingredient{
@@ -113,5 +124,34 @@ class MyRepository(private val myDao: MyDao) {
     fun getShoppingLinesForEvent(id: Int): List<EventShoppingLine> {
         return myDao.getShoppingLinesForEvent(id)
     }
+    fun getShoppingLinesForEventLive(id: Int): LiveData<List<EventShoppingLine>> {
+        return myDao.getShoppingLinesForEventLive(id)
+    }
+
+    fun getChildrenCountForEvent(id: Int, unix: Long): Int{
+        return myDao.getChildrenCountForEvent(id, unix)
+    }
+
+    fun getStudentCountForEvent(id: Int, unix: Long): Int{
+        return myDao.getStudentCountForEvent(id, unix)
+    }
+
+    fun getAdultCountForEvent(id: Int, unix: Long): Int{
+        return myDao.getAdultCountForEvent(id, unix)
+    }
+
+    fun getEventDishes(id: Int): LiveData<Map<EventDish, Dish>>{
+        return myDao.getEventDishes(id)
+    }
+
+    fun getForEventShopping(id: Int): List<RecipeLine>{
+        return myDao.getForEventShopping(id)
+    }
+
+    fun getEventAttendanceCount(id: Int): Int {
+        return myDao.getEventAttendanceCount(id)
+    }
+
+
 
 }

@@ -17,7 +17,11 @@ class MyViewModel(application: Application): AndroidViewModel(application){
     val getIngredientsOrderedByNameLive: LiveData<List<Ingredient>>
     val getIngredientsOrderedByName: List<Ingredient>
     val getEventsOrderedByDateLive: LiveData<List<Event>>
-    val getDishesOrderedByName: LiveData<List<Dish>>
+    val getDishesOrderedByNameLive: LiveData<List<Dish>>
+    val getAdultsAndInstructors: List<Person>
+    val getAdults: List<Person>
+    val getDishesOrderedByName: List<Dish>
+
     init{
         val personDao = MyDatabase.getDatabase(application).personDao()
         repository = MyRepository(personDao)
@@ -27,8 +31,12 @@ class MyViewModel(application: Application): AndroidViewModel(application){
         getAll = repository.getAll
         getIngredientsOrderedByNameLive = repository.getIngredientsOrderedByNameLive
         getIngredientsOrderedByName = repository.getIngredientsOrderedByName
+        getDishesOrderedByNameLive = repository.getDishesOrderedByNameLive
         getDishesOrderedByName = repository.getDishesOrderedByName
         getEventsOrderedByDateLive = repository.getEventsOrderedByDateLive
+        getAdultsAndInstructors = repository.getAdultsAndInstruktors
+        getAdults = repository.getAdults
+
     }
 
     fun upsertPerson(person: Person){
@@ -142,12 +150,22 @@ class MyViewModel(application: Application): AndroidViewModel(application){
             repository.deleteEventShoppingLine(line)
         }
     }
+    fun deleteEventShoppingLines(id: Int) {
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            repository.deleteEventShoppingLines(id)
+        }
+    }
 
     fun getByNameAndSurname (n: String, sn: String) : List<Person>{
         return repository.getByNameAndSurname(n, sn)
     }
     fun getPerson(id: Int): Person{
         return repository.getPerson(id)
+    }
+
+    fun getPersonLive(id: Int): LiveData<Person?>{
+        return repository.getPersonLive(id)
     }
 
     fun getIngredient(id: Int): Ingredient{
@@ -170,11 +188,39 @@ class MyViewModel(application: Application): AndroidViewModel(application){
         return repository.getAttendanceForEvent(id)
     }
 
+    fun getShoppingLinesForEventLive(id: Int): LiveData<List<EventShoppingLine>> {
+        return repository.getShoppingLinesForEventLive(id)
+    }
     fun getShoppingLinesForEvent(id: Int): List<EventShoppingLine> {
         return repository.getShoppingLinesForEvent(id)
     }
-
-    fun getAttendanceOrderedByAgeLive(eventId: Int): LiveData<List<EventAttendance>>{
+    fun getAttendanceOrderedByAgeLive(eventId: Int): LiveData<Map< Person, EventAttendance?>>{
         return repository.getAttendanceOrderedByAgeLive(eventId)
     }
+
+    fun getChildrenCountForEvent(id: Int, unix: Long): Int{
+        return repository.getChildrenCountForEvent(id, unix)
+    }
+
+    fun getStudentCountForEvent(id: Int, unix: Long): Int{
+        return repository.getStudentCountForEvent(id, unix)
+    }
+
+    fun getAdultCountForEvent(id: Int, unix: Long): Int{
+        return repository.getAdultCountForEvent(id, unix)
+    }
+
+    fun getEventDishes(id: Int): LiveData<Map<EventDish, Dish>>{
+        return repository.getEventDishes(id)
+    }
+
+    fun getForEventShopping(id: Int): List<RecipeLine>{
+        return repository.getForEventShopping(id)
+    }
+
+    fun getEventAttendanceCount(id: Int): Int {
+        return repository.getEventAttendanceCount(id)
+    }
+
+
 }

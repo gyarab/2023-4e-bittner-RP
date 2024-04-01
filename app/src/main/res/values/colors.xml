@@ -13,4 +13,6 @@
     <color name="hunyadi_yellow">#EDAE49</color>
     <color name="lighter_hunyadi_yellow">#F0BD6A</color>
     <color name="grey">#606060</color>
+    <color name="green">#009900</color>
+    <color name="red">#990000</color>
 </resources>

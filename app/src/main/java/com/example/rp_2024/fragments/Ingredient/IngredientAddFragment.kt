@@ -40,11 +40,7 @@ class IngredientAddFragment : Fragment() {
             }
         }
 
-        viewModel.upsertIngredient(Ingredient(20, "mouka", ""))
-        viewModel.upsertIngredient(Ingredient(21, "těstoviny", ""))
-        viewModel.upsertIngredient(Ingredient(22, "brambory", ""))
-        viewModel.upsertIngredient(Ingredient(23, "pepř", ""))
-        viewModel.upsertIngredient(Ingredient(24, "česnek", ""))
+
 
 
         binding.button.setOnClickListener{

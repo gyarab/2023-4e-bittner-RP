@@ -22,10 +22,10 @@
         />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/ingredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name"
+        android:text="ingredien"
         android:textSize="24sp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toEndOf="@+id/number"
@@ -35,38 +35,34 @@
          />
 
     <TextView
-        android:id="@+id/note"
+        android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="note"
+        android:text="mno"
         android:textSize="24sp"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/ingredient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
          />
-
-    <ImageButton
-        android:id="@+id/edit"
+    <TextView
+        android:id="@+id/measurement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_edit_24"
+        android:text="jednotka"
         android:textSize="24sp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/delete"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@+id/amount"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
         />
-    <ImageButton
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/baseline_delete_24"
-        android:textSize="24sp"
+    <CheckBox
+        android:id="@+id/check"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

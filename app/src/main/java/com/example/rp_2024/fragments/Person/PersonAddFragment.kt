@@ -51,11 +51,6 @@ class PersonAddFragment : Fragment() {
             }
         }
 
-        viewModel.upsertPerson(Person(20, "alois", "jirásek", 0, "", 	323087057, -1, -1, "", "", "staré pověsti", false))
-        viewModel.upsertPerson(Person(21, "george", "orwell", 3, "", 		454584257, -1, -1, "", "541616158", "", false))
-        viewModel.upsertPerson(Person(22, "karel", "mácha", 2, "", 			959505857, -1, -1, "macha@com", "546496158", "", false))
-        viewModel.upsertPerson(Person(23, "božena", "němcová", 1, "", 			-618413743, -1, 24, "nemcova@bozena", "543185158", "babička", false))
-        viewModel.upsertPerson(Person(24, "Jana", "němcová", 4, "", 			-618413743, -1, -1, "jana@mail", "557465158", "babička", false))
 
         binding.isiclayout.setOnClickListener{
             binding.isic.isChecked = binding.isic.isChecked.not()
@@ -85,13 +80,7 @@ class PersonAddFragment : Fragment() {
             binding.name.setText(p.name)
             binding.surname.setText(p.surname)
             binding.alias.setText(p.alias)
-            binding.status.prompt = when (p.status) {
-                0 -> "dítě"
-                1 -> "instruktor"
-                2 -> "vedoucí"
-                3 -> "kmeňák"
-                else -> "dítě"
-            }
+            binding.status.setSelection(p.status)
 
             val sdf = SimpleDateFormat("yyyyMMdd")
             val date = java.util.Date(p.birthdate)

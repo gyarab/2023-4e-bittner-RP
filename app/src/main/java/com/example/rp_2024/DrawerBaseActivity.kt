@@ -57,6 +57,11 @@ open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigation
                 startActivity(Intent(this, DishesActivity::class.java).apply{})
                 overridePendingTransition(0,0)
             }
+            R.id.nav6 -> {
+                startActivity(Intent(this, DashboardActivity::class.java).apply{})
+                overridePendingTransition(0,0)
+            }
+
         }
 
         return false

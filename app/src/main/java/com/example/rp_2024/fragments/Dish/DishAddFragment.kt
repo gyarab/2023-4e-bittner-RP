@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.Dish
 import com.example.rp_2024.databaseStuff.MyViewModel
-import com.example.rp_2024.databaseStuff.RecipeLine
 import com.example.rp_2024.databinding.FragmentDishAddBinding
 import com.example.rp_2024.databinding.FragmentDishAddIngredientDialogBinding
 import com.example.rp_2024.databinding.FragmentDishAlertDialogBinding
@@ -47,10 +46,7 @@ class DishAddFragment : Fragment() {
             }
         }
 
-        viewModel.upsertDish(Dish(20, "svíčková", ""))
-        viewModel.upsertRecipeLine(RecipeLine(20, 20, 20, 50, "g"))
-        viewModel.upsertRecipeLine(RecipeLine(21, 20, 21, 2, "špetky"))
-        viewModel.upsertRecipeLine(RecipeLine(22, 20, 22, 8, "mm"))
+
 
         val adapter = RecipeLineListAdapter(viewModel)
         val recycler = binding.recyclerView

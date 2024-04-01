@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,10 +28,7 @@ class EventAttendanceFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[MyViewModel::class.java]
 
-        val adapter = EventAttendanceAdapter(viewModel)
-        val recycler = binding.recyclerView
-        recycler.adapter = adapter
-        recycler.layoutManager = LinearLayoutManager(requireContext())
+
 
 
         var event: Event? = null
@@ -44,17 +40,23 @@ class EventAttendanceFragment : Fragment() {
             }
         }
 
+        val adapter = EventAttendanceAdapter(viewModel, event!!)
+        val recycler = binding.recyclerView
+        recycler.adapter = adapter
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+
         binding.floatingActionButton.setOnClickListener{
-            val action = EventListFragmentDirections.actionListFragmentToAddFragment(event)
+            val action = EventAttendanceFragmentDirections.actionEventAttendanceFragmentToAddFragment(event)
             findNavController().navigate(action)
         }
 
 
 
         if (event != null) {
-            viewModel.getAttendanceOrderedByAgeLive(event.id).observe(viewLifecycleOwner, Observer{attendance ->
-                adapter.setData(attendance)
-            })
+            viewModel.getAttendanceOrderedByAgeLive(event.id).observe(viewLifecycleOwner
+            ) { attendancemap ->
+                adapter.setData(attendancemap)
+            }
         }
 
         return binding.root

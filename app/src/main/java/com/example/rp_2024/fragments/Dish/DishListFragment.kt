@@ -57,7 +57,7 @@ class DishListFragment : Fragment() {
 
 
 
-        viewModel.getDishesOrderedByName.observe(viewLifecycleOwner, Observer{dish ->
+        viewModel.getDishesOrderedByNameLive.observe(viewLifecycleOwner, Observer{ dish ->
             adapter.setData(dish)
         })
 

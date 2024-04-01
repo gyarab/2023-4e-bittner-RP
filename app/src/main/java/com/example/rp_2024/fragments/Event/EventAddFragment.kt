@@ -1,19 +1,30 @@
 package com.example.rp_2024.fragments.Event
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.Event
 import com.example.rp_2024.databaseStuff.MyViewModel
+import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databinding.FragmentDishAlertDialogBinding
 import com.example.rp_2024.databinding.FragmentEventAddBinding
+import com.example.rp_2024.databinding.FragmentEventAddPersonDialogBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 
 
 class EventAddFragment : Fragment() {
@@ -24,6 +35,7 @@ class EventAddFragment : Fragment() {
 
     private lateinit var viewModel: MyViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +58,14 @@ class EventAddFragment : Fragment() {
         }
 
 
+        var current = LocalDate.now()
+        current = current.minusYears(18)
+
+
+        val unix = current.toEpochDay()*86400000
+        binding.children.text = viewModel.getChildrenCountForEvent(event!!.id, unix).toString()
+        binding.students.text = viewModel.getStudentCountForEvent(event!!.id, unix).toString()
+        binding.adults.text = viewModel.getAdultCountForEvent(event!!.id, unix).toString()
 
         binding.name.setText(event!!.name)
         binding.note.setText(event.note)
@@ -71,18 +91,118 @@ class EventAddFragment : Fragment() {
             binding.endHourPicker.value = s.subSequence(8, 10).toString().toInt()
             binding.endMinutePicker.value = s.subSequence(10, 12).toString().toInt()
         }
-        if(event.adminId != -1){
-            val p = viewModel.getPerson(event.adminId)
-            binding.admin.text = p.name + " " + p.alias + " " + p.surname
+
+        val adminObserver = Observer<Person?> { p ->
+            if (p != null) {
+                if (p.alias == "") {
+                    p.alias = " "
+                }
+                binding.admin.text = buildString {
+                    append(p.name.replaceFirstChar {
+                        p.name.first().uppercaseChar().toString()
+                    })
+                    append(" ")
+                    append(p.alias.replaceFirstChar {
+                        p.alias.first().uppercaseChar().toString()
+                    })
+                    append(" ")
+                    append(p.surname.replaceFirstChar {
+                        p.surname.first().uppercaseChar().toString()
+                    })
+                }
+            }
         }
-        if(event.adultId != -1){
-            val p = viewModel.getPerson(event.adultId)
-            binding.adult.text = p.name + " " + p.alias + " " + p.surname
+        viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                while (true) {
+                    viewModel.getPersonLive(event.adminId).observe(viewLifecycleOwner, adminObserver)
+                    delay(500)
+                }
+            }
+        }
+        val adultObserver = Observer<Person?> { p ->
+            if (p != null) {
+                if (p.alias == "") {
+                    p.alias = " "
+                }
+                binding.adult.text = buildString {
+                    append(p.name.replaceFirstChar {
+                        p.name.first().uppercaseChar().toString()
+                    })
+                    append(" ")
+                    append(p.alias.replaceFirstChar {
+                        p.alias.first().uppercaseChar().toString()
+                    })
+                    append(" ")
+                    append(p.surname.replaceFirstChar {
+                        p.surname.first().uppercaseChar().toString()
+                    })
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                while (true) {
+                    viewModel.getPersonLive(event.adultId).observe(viewLifecycleOwner, adultObserver)
+                    delay(500)
+                }
+            }
         }
 
 
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
+        }
+
+        binding.editAttendance.setOnClickListener{
+            val action = EventAddFragmentDirections.actionAddFragmentToEventAttendanceFragment(event)
+            findNavController().navigate(action)
+        }
+        binding.editDishes.setOnClickListener{
+            val action = EventAddFragmentDirections.actionAddFragmentToDishListFragment(event)
+            findNavController().navigate(action)
+        }
+        binding.editShoppingList.setOnClickListener{
+            val action = EventAddFragmentDirections.actionAddFragmentToEventShoppingListFragment(event)
+            findNavController().navigate(action)
+        }
+
+        binding.editAdmin.setOnClickListener{
+            val builder = AlertDialog.Builder(context)
+
+            val addPersonDialogBinding = FragmentEventAddPersonDialogBinding.inflate(inflater, container, false)
+
+            builder.setTitle("vyberte organizátora")
+            builder.setView(addPersonDialogBinding.root)
+            builder.setNegativeButton("zrušit"){ dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            val shower: AlertDialog = builder.show()
+
+            val adapter = EventAddPersonListAdapter(viewModel, event, 1, shower)
+            val recycler = addPersonDialogBinding.recyclerView
+            recycler.adapter = adapter
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            adapter.setData(viewModel.getAdultsAndInstructors)
+        }
+
+        binding.editAdult.setOnClickListener{
+            val builder = AlertDialog.Builder(context)
+
+            val addPersonDialogBinding = FragmentEventAddPersonDialogBinding.inflate(inflater, container, false)
+
+            builder.setTitle("vyberte zodpovědného dospělého")
+            builder.setView(addPersonDialogBinding.root)
+            builder.setNegativeButton("zrušit"){ dialogInterface, i ->
+                dialogInterface.dismiss()
+            }
+            val shower: AlertDialog = builder.show()
+
+            val adapter = EventAddPersonListAdapter(viewModel, event, 2, shower)
+            val recycler = addPersonDialogBinding.recyclerView
+            recycler.adapter = adapter
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            adapter.setData(viewModel.getAdults)
         }
 
         binding.button.setOnClickListener{

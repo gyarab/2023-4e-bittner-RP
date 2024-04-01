@@ -9,10 +9,7 @@
     android:orientation="vertical"
     android:padding="15dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
@@ -23,10 +20,10 @@
             android:src="@drawable/baseline_arrow_back_ios_new_24"
             android:tint="@color/white"
             app:fabCustomSize="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    </LinearLayout>
+
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -170,7 +167,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -294,7 +291,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
     <TextView
         android:layout_width="wrap_content"
@@ -343,7 +340,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
     <TextView
         android:layout_width="wrap_content"
@@ -392,7 +389,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -426,10 +423,68 @@
             app:layout_constraintTop_toTopOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="lístky:"
+            android:textSize="15sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="děti"
+            android:textSize="15sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="5dp"/>
+        <TextView
+            android:id="@+id/children"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text=""
+            android:textSize="20sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="studenti"
+            android:textSize="15sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="5dp"/>
+        <TextView
+            android:id="@+id/students"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text=""
+            android:textSize="20sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="despělí"
+            android:textSize="15sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="5dp"/>
+        <TextView
+            android:id="@+id/adults"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text=""
+            android:textSize="20sp"
+            android:gravity="bottom"
+            android:layout_marginEnd="20dp"/>
+
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -464,10 +519,42 @@
             app:layout_constraintTop_toTopOf="parent"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Nákupní seznam"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/reisin_black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+        <ImageButton
+            android:id="@+id/editShoppingList"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:src="@drawable/baseline_shopping_basket_24"
+            android:textSize="24sp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/grey"
         android:layout_margin="5dp"/>
     <TextView
         android:layout_width="wrap_content"

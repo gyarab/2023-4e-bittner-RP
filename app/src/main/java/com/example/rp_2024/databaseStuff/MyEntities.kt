@@ -77,6 +77,8 @@ data class EventShoppingLine(
     var id: Int,
     var eventId: Int,
     var ingredientId: Int,
+    var measurement: String,
+    var amount: Int,
     var bought: Boolean
 ): Parcelable{}
 

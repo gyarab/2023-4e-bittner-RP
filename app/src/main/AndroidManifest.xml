@@ -43,6 +43,12 @@
             android:theme="@style/Theme.RP_2024">
         </activity>
         <activity
+            android:name=".DashboardActivity"
+            android:exported="false"
+            android:label="activity_dashboard"
+            android:theme="@style/Theme.RP_2024">
+        </activity>
+        <activity
             android:name=".CaesarsCipherActivity"
             android:exported="true"
             android:label="activity_ceasars_cipher"

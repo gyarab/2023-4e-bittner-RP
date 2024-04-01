@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 
 @Database(
     entities = [Person::class, Ingredient::class, Dish::class, RecipeLine::class, Event::class, EventAttendance::class, EventDish::class, EventShoppingLine::class],
-    version = 7,
+    version = 9,
     exportSchema = true,
 )
 abstract class MyDatabase: RoomDatabase() {

@@ -9,6 +9,7 @@ import androidx.room.Upsert
 
 @Dao
 interface MyDao {
+
     @Upsert
     suspend fun upsertPerson(person: Person)
 
@@ -56,8 +57,13 @@ interface MyDao {
     @Delete
     suspend fun deleteEventShoppingLine(line: EventShoppingLine)
 
+    @Query("DELETE from EventShoppingLine WHERE eventId=:id")
+    abstract fun deleteEventShoppingLines(id: Int)
     @Query("SELECT * FROM dish ORDER BY name")
-    fun getDishesOrderedByName(): LiveData<List<Dish>>
+    fun getDishesOrderedByNameLive(): LiveData<List<Dish>>
+
+    @Query("SELECT * FROM dish ORDER BY name")
+    fun getDishesOrderedByName(): List<Dish>
 
     @Query("SELECT * FROM RecipeLine WHERE dishId = :dishId ORDER BY amount DESC")
     fun getRecipeLinesForDishByNameLive(dishId: Int): LiveData<List<RecipeLine>>
@@ -89,6 +95,15 @@ interface MyDao {
     @Query("SELECT * FROM person WHERE id=:id")
     fun getPerson(id: Int): Person
 
+    @Query("SELECT * FROM person WHERE id=:id")
+    fun getPersonLive(id: Int): LiveData<Person?>
+
+    @Query("SELECT * FROM person WHERE status=1 OR status=2 ORDER BY birthdate ASC")
+    fun getAdultsAndInstruktors(): List<Person>
+
+    @Query("SELECT * FROM person WHERE status=2 ORDER BY birthdate ASC")
+    fun getAdults(): List<Person>
+
     @Query("SELECT * FROM ingredient WHERE id=:id")
     fun getIngredient(id: Int): Ingredient
 
@@ -102,12 +117,30 @@ interface MyDao {
     fun getAttendanceForEvent(id: Int): List<EventAttendance>
 
     @Query("SELECT * FROM EventShoppingLine WHERE eventId=:id")
+    fun getShoppingLinesForEventLive(id: Int): LiveData<List<EventShoppingLine>>
+
+    @Query("SELECT * FROM EventShoppingLine WHERE eventId=:id")
     fun getShoppingLinesForEvent(id: Int): List<EventShoppingLine>
 
-    @Query("SELECT EventAttendance.id, EventAttendance.eventId, EventAttendance.personId, EventAttendance.atends " +
-            "FROM EventAttendance LEFT JOIN Person " +
-            "ON EventAttendance.personId=Person.id " +
-            "WHERE EventAttendance.eventId=:id " +
-            "ORDER BY Person.birthdate ASC")
-    fun getAttendanceOrderedByAgeLive(id: Int): LiveData<List<EventAttendance>>
+    @Query("WITH at AS (SELECT * FROM EventAttendance WHERE eventId=:id) SELECT * FROM Person LEFT JOIN at ON Person.id=at.personId WHERE Person.status<4 ORDER BY Person.birthdate ASC")
+    fun getAttendanceOrderedByAgeLive(id: Int): LiveData<Map<Person, EventAttendance?>>
+
+    @Query("WITH at AS (SELECT * FROM EventAttendance WHERE eventId=:id) SELECT COUNT(*) FROM at JOIN person ON at.personId=Person.id WHERE Person.birthdate>:unix AND at.atends=1")
+    fun getChildrenCountForEvent(id: Int, unix: Long): Int  //unix je počet milisekund od epochy po datum před 18 lety
+    @Query("WITH at AS (SELECT * FROM EventAttendance WHERE eventId=:id) SELECT COUNT(*) FROM at JOIN person ON at.personId=Person.id WHERE Person.birthdate<:unix AND Person.isic=1 AND at.atends=1")
+    fun getStudentCountForEvent(id: Int, unix: Long): Int  //unix je počet milisekund od epochy po datum před 18 lety
+
+    @Query("WITH at AS (SELECT * FROM EventAttendance WHERE eventId=:id) SELECT COUNT(*) FROM at JOIN person ON at.personId=Person.id WHERE Person.birthdate<:unix AND Person.isic!=1 AND at.atends=1")
+    fun getAdultCountForEvent(id: Int, unix: Long): Int  //unix je počet milisekund od epochy po datum před 18 lety
+
+    @Query("SELECT * FROM EventDish JOIN Dish ON EventDish.dishId=Dish.id WHERE EventDish.eventId=:id")
+    fun getEventDishes(id: Int): LiveData<Map<EventDish, Dish>>
+
+    @Query("SELECT RecipeLine.* FROM EventDish JOIN RecipeLine ON EventDish.dishId=RecipeLine.dishId WHERE EventDish.eventId=:id")
+    fun getForEventShopping(id: Int): List<RecipeLine>
+//.id, RecipeLine.dishId, RecipeLine.ingredientId, RecipeLine.amount, RecipeLine.measurement
+
+    @Query("SELECT COUNT(*) FROM EventAttendance WHERE eventId=:id AND atends=1")
+    fun getEventAttendanceCount(id: Int): Int
+
 }

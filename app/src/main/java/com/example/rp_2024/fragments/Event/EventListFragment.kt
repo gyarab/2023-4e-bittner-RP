@@ -34,7 +34,7 @@ class EventListFragment : Fragment() {
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.upsertEvent(Event(20, "Velikonočka", 	1711614000, 	1711984920, 20, 21, "obráceně"))
+
 
         binding.floatingActionButton.setOnClickListener{
             val dialogBinding = FragmentDishAlertDialogBinding.inflate(inflater, container, false)
