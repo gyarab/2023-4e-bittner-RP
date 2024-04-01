@@ -23,7 +23,7 @@ class MyViewModel(application: Application): AndroidViewModel(application){
     val getDishesOrderedByName: List<Dish>
 
     init{
-        val personDao = MyDatabase.getDatabase(application).personDao()
+        val personDao = MyDatabase.getDatabase(application).dao()
         repository = MyRepository(personDao)
         getAllOrderedByName = repository.getAllOrderedByName
         getAllOrderedBySurname = repository.getAllOrderedBySurname

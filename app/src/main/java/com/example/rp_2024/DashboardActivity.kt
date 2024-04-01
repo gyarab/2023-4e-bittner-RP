@@ -47,7 +47,7 @@ class DashboardActivity : DrawerBaseActivity() {
         viewModel.upsertPerson(Person(21, "george", "orwell", 0, "", 1238450400, -1, -1, "", "541616158", "", false))
         viewModel.upsertPerson(Person(22, "karel", "mácha", 1, "", 1175292000, -1, -1, "macha@com", "546496158", "", false))
         viewModel.upsertPerson(Person(23, "božena", "němcová", 2, "", 1080684000, -1, 24, "nemcova@bozena", "543185158", "babička", true))
-        viewModel.upsertPerson(Person(24, "Jana", "němcová", 2, "", 828226800, -1, -1, "jana@mail", "557465158", "babička", false))
+        viewModel.upsertPerson(Person(24, "Jana", "němcová", 4, "", 828226800, -1, -1, "jana@mail", "557465158", "babička", false))
 
     }
 

@@ -4,16 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import kotlinx.coroutines.runBlocking
+import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
+import java.nio.charset.StandardCharsets
 
 @Database(
     entities = [Person::class, Ingredient::class, Dish::class, RecipeLine::class, Event::class, EventAttendance::class, EventDish::class, EventShoppingLine::class],
-    version = 9,
+    version = 11,
     exportSchema = true,
 )
 abstract class MyDatabase: RoomDatabase() {
-    abstract fun personDao(): MyDao
+    abstract fun dao(): MyDao
 
 
 
@@ -23,34 +23,38 @@ abstract class MyDatabase: RoomDatabase() {
         private var INSTANCE: MyDatabase? = null
 
         fun getDatabase(context: Context): MyDatabase {
-
-
-
-
             val tempInstance = INSTANCE
             if(tempInstance != null){
-                return tempInstance
+                if(tempInstance.isOpen) {
+                    return tempInstance
+                }
             }
+            //val userPassphrase = "1946258375461295".toCharArray() // Replace with your passphrase
+            //val passphrase = SQLiteDatabase.getBytes(userPassphrase)
+            //val state = SQLCipherUtils.getDatabaseState(context, "my_database")
+
+/*
+            if (state == SQLCipherUtils.State.UNENCRYPTED) {
+                SQLCipherUtils.encrypt(
+                    context,
+                    "my_database",
+                    passphrase
+                )
+            }    */
+
+
+            System.loadLibrary("sqlcipher")
+            val password = "Password1!"
+
+            val factory = SupportOpenHelperFactory(password.toByteArray(StandardCharsets.UTF_8))
+
             synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,
-                    MyDatabase::class.java, "person_database")
+                    MyDatabase::class.java, "my_database")
                     .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
-                    .addCallback(object : RoomDatabase.Callback() {
-                    override fun onCreate(db: SupportSQLiteDatabase) {
-                        super.onCreate(db)
-
-                        runBlocking {
-                                val dao = INSTANCE?.personDao()
-                                dao?.upsertPerson(Person(20, "alois", "jirásek", 0, "", 	323087057, -1, -1, "", "", "staré pověsti", false))
-                                dao?.upsertPerson(Person(21, "george", "orwell", 3, "", 		454584257, -1, -1, "", "541616158", "", false))
-                                dao?.upsertPerson(Person(22, "karel", "mácha", 2, "", 			959505857, -1, -1, "macha@com", "546496158", "", false))
-                                dao?.upsertPerson(Person(23, "božena", "němcová", 1, "", 			-618413743, -1, 24, "nemcova@bozena", "543185158", "babička", false))
-                                dao?.upsertPerson(Person(24, "Jana", "němcová", 4, "", 			-618413743, -1, -1, "jana@mail", "557465158", "babička", false))
-                        }
-
-                    }
-                }).build()
+                    //.openHelperFactory(factory) //should add encryption, but doesn't work
+                    .build()
                 INSTANCE = instance
                 return instance
             }

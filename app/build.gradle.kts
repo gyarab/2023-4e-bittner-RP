@@ -61,6 +61,8 @@ android {
 kotlin {
     jvmToolchain(17)
 }
+
+
 dependencies {
 
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -84,6 +86,12 @@ dependencies {
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.room:room-runtime:$room_version")
+
+    //sqlite
+    //implementation ("net.zetetic:android-database-sqlcipher:4.5.3")
+    implementation ("androidx.sqlite:sqlite-ktx:2.4.0")
+    implementation ("net.zetetic:sqlcipher-android:4.5.6@aar")
+    implementation ("androidx.sqlite:sqlite:2.4.0")
 
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
