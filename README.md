@@ -16,3 +16,4 @@ https://github.com/gyarab/2023-4e-bittner-RP/tree/master/app/src/main
  - res/layout - rozložení aktivit a fragmentů
  - res/menu - rozložení pro hlavní menu aplikace
  - res/navigation - navigační grafy
+
