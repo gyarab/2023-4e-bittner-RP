@@ -9,8 +9,6 @@ https://github.com/gyarab/2023-4e-bittner-RP/tree/master/app
 https://github.com/gyarab/2023-4e-bittner-RP/tree/master/app/src/main
  - AndroidManifest.xml - soubor s kontexty aktivit v aplikaci
  - java - složka obsahující třídy, fragmenty a datové třídy aplikace
- - res - složka obsahující rozložení
-           - jmenovitě ve složkách
-                           layout - rozložení aktivit a fragmentů
-                           menu - rozložení pro hlavní menu aplikace
-                           navigation - navigační grafy
+ - res/layout - rozložení aktivit a fragmentů
+ - res/menu - rozložení pro hlavní menu aplikace
+ - res/navigation - navigační grafy
