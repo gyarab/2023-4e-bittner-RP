@@ -10,7 +10,7 @@ import com.example.rp_2024.databaseStuff.EventShoppingLine
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.EventCustomRowBinding
 
-
+//adapter pro seznam všech akcí
 class EventListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<EventListAdapter.MyViewHolder>() {
 
     private var list = emptyList<Event>()
@@ -33,6 +33,7 @@ class EventListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapte
 
                 var time = ""
 
+                //konverze časů začátku a konce v databázi z Unix timestamp na string k zobrazení
                 if(this.start.toInt() != -1){
                     val sdf = java.text.SimpleDateFormat("yyyyMMddhhmm")
                     val date = java.util.Date(this.start)
@@ -66,6 +67,7 @@ class EventListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapte
                 }
                 binding.time.text = time
 
+                //smaže akci a všechny entity v databázi s ní související
                 binding.delete.setOnClickListener{
                     viewModel.deleteEvent(list[position])
                     setData(list.minus(list[position]))

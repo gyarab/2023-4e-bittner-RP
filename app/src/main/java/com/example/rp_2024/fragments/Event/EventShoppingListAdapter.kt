@@ -8,7 +8,7 @@ import com.example.rp_2024.databaseStuff.EventShoppingLine
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.EventShoppingLineCustomRowBinding
 
-
+//adapter pro zobrazení řádek v nákupním seznamu akce
 class EventShoppingListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<EventShoppingListAdapter.MyViewHolder>() {
 
     var list: List<EventShoppingLine> = emptyList()
@@ -33,6 +33,7 @@ class EventShoppingListAdapter(private val viewModel : MyViewModel): RecyclerVie
                 binding.measurement.text = this.measurement
                 binding.check.isChecked = this.bought
 
+                //každá změna je ihned uložena do databáze
                 binding.check.setOnCheckedChangeListener{ _, isChecked ->
                     this.bought = isChecked
                     viewModel.upsertEventShoppingLine(this)

@@ -12,8 +12,11 @@ import android.widget.Switch
 import android.widget.TextView
 import com.example.rp_2024.databinding.ActivityCaesarsCipherBinding
 
+//Jednoduchá aktivita na posouvání abecedy
+//Hlavně posloužila k tomu, že jsem se na ní naučil základy kotlinu a Android strudia
 class CaesarsCipherActivity : DrawerBaseActivity(), View.OnClickListener {
 
+    //late init promněnné jsou inicializovány později
     private lateinit var activityCaesarsCipherBinding : ActivityCaesarsCipherBinding
     private lateinit var btn : Button
     private lateinit var text : EditText
@@ -27,12 +30,15 @@ class CaesarsCipherActivity : DrawerBaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        //binding poskytuje přistup k prvkům layoutu
         activityCaesarsCipherBinding = ActivityCaesarsCipherBinding.inflate(layoutInflater)
 
         setContentView(activityCaesarsCipherBinding.root)
         allocateActivityTitle("Caesarova Šifra")
 
-
+        //tady používám zastaralý postup
+        //správně by bylo binding.sifruj    ve zbytku aplikace to tak je
         btn = findViewById(R.id.sifruj)
         text = findViewById(R.id.text)
         posun = findViewById(R.id.posun)
@@ -79,7 +85,7 @@ class CaesarsCipherActivity : DrawerBaseActivity(), View.OnClickListener {
     }
 
      
-
+    //pokus o uchování dat při ukončení aktivity
     override fun onSaveInstanceState(outState: Bundle) {
             outState.putString("POSUN", posun.text.toString())
             outState.putString("TEXT", text.text.toString())
@@ -88,6 +94,7 @@ class CaesarsCipherActivity : DrawerBaseActivity(), View.OnClickListener {
         super.onSaveInstanceState(outState)
     }
 
+    //pokud o obnovení dat při znovu otevření aktivity
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         text.setText(savedInstanceState.getString("TEXT"))
         posun.setText(savedInstanceState.getString("POSUN"))

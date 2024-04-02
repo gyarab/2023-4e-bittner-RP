@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 
-
+//fragment na upravování informací o akci
 class EventAddFragment : Fragment() {
 
 
@@ -46,7 +46,7 @@ class EventAddFragment : Fragment() {
 
 
         viewModel = ViewModelProvider(this)[MyViewModel::class.java]
-
+        //aplikace nikdy nenaviguje na tento fragment bez argumentu, proto bu vždy v promněnné event měla skončit momentálně upravovaná akce
         var eventId = -1
         var event: Event? = null
         if(arguments != null){
@@ -62,6 +62,7 @@ class EventAddFragment : Fragment() {
         current = current.minusYears(18)
 
 
+        //vygeneruje počty kategorií pro koupi lístkú, podle účasti v databázi
         val unix = current.toEpochDay()*86400000
         binding.children.text = viewModel.getChildrenCountForEvent(event!!.id, unix).toString()
         binding.students.text = viewModel.getStudentCountForEvent(event!!.id, unix).toString()
@@ -70,6 +71,8 @@ class EventAddFragment : Fragment() {
         binding.name.setText(event!!.name)
         binding.note.setText(event.note)
 
+        //pokud není čas začátku v databázi -1 (moje iniciační hodnota, bude když byl event právě vytvořen a je poprvé upravován)
+        //přepočte Unix timestamp na čas a ten nastaví na NumberPicker View komponenty
         if(event.start.toInt() != -1){
             val sdf = java.text.SimpleDateFormat("yyyyMMddhhmm")
             val date = java.util.Date(event.start)
@@ -92,6 +95,7 @@ class EventAddFragment : Fragment() {
             binding.endMinutePicker.value = s.subSequence(10, 12).toString().toInt()
         }
 
+        //inicializuje observer, který aktualizuje jménoorganizátora pokaždé když dojde v databázi ke zmněně
         val adminObserver = Observer<Person?> { p ->
             if (p != null) {
                 if (p.alias == "") {
@@ -112,6 +116,7 @@ class EventAddFragment : Fragment() {
                 }
             }
         }
+        //spustí vedlejší coroutine, kde se každé půl sekundy aktualizuje kdo je organizátor
         viewLifecycleOwner.lifecycleScope.launch {
             launch {
                 while (true) {
@@ -120,6 +125,8 @@ class EventAddFragment : Fragment() {
                 }
             }
         }
+
+        //inicializuje observer, který aktualizuje jméno zodpovědného dospělého pokaždé když dojde v databázi ke zmněně
         val adultObserver = Observer<Person?> { p ->
             if (p != null) {
                 if (p.alias == "") {
@@ -140,6 +147,8 @@ class EventAddFragment : Fragment() {
                 }
             }
         }
+
+        //spustí vedlejší coroutine, kde se každé půl sekundy aktualizuje kdo je zodpovědný
         viewLifecycleOwner.lifecycleScope.launch {
             launch {
                 while (true) {
@@ -149,24 +158,30 @@ class EventAddFragment : Fragment() {
             }
         }
 
-
+        //naviguje zpět na seznam
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
 
+        //naviguje na fragment pro upravení účasti na akci
         binding.editAttendance.setOnClickListener{
             val action = EventAddFragmentDirections.actionAddFragmentToEventAttendanceFragment(event)
             findNavController().navigate(action)
         }
+
+        //naviguje na fragment pro výběr plánovaných jídel na akci
         binding.editDishes.setOnClickListener{
             val action = EventAddFragmentDirections.actionAddFragmentToDishListFragment(event)
             findNavController().navigate(action)
         }
+
+        //naviguje na fragment s nákupním seznamem
         binding.editShoppingList.setOnClickListener{
             val action = EventAddFragmentDirections.actionAddFragmentToEventShoppingListFragment(event)
             findNavController().navigate(action)
         }
 
+        //zobrazí dialog s validními členy (podle statusu) v recycler view
         binding.editAdmin.setOnClickListener{
             val builder = AlertDialog.Builder(context)
 
@@ -186,6 +201,7 @@ class EventAddFragment : Fragment() {
             adapter.setData(viewModel.getAdultsAndInstructors)
         }
 
+        //zobrazí dialog s validními členy (podle statusu) v recycler view, adapter je stejný, jako pro výběr organizátora, jen dostane jiná data
         binding.editAdult.setOnClickListener{
             val builder = AlertDialog.Builder(context)
 
@@ -205,6 +221,8 @@ class EventAddFragment : Fragment() {
             adapter.setData(viewModel.getAdults)
         }
 
+        //uloží data, která se neukládají rovnou
+        //tj. název, časy a poznámka
         binding.button.setOnClickListener{
             event.name = binding.name.text.toString()
             event.note = binding.note.text.toString()

@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import java.nio.charset.StandardCharsets
 
+//v anotaci jsou definovány entity databáze, verze a jestli se má exportovat schéma
 @Database(
     entities = [Person::class, Ingredient::class, Dish::class,
         RecipeLine::class, Event::class, EventAttendance::class,
@@ -24,6 +25,8 @@ abstract class MyDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: MyDatabase? = null
 
+
+        //inicializace databáze jako singleton
         fun getDatabase(context: Context): MyDatabase {
             val tempInstance = INSTANCE
             if(tempInstance != null){
@@ -34,15 +37,14 @@ abstract class MyDatabase: RoomDatabase() {
 
             System.loadLibrary("sqlcipher")
             val password = "Password1!"
-
             val factory = SupportOpenHelperFactory(password.toByteArray(StandardCharsets.UTF_8))
 
             synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,
                     MyDatabase::class.java, "my_database")
-                    .allowMainThreadQueries()
+                    .allowMainThreadQueries()   //potenciálně zhoršuje běh aplikace, ale při zanedbatelné velikosti dat, se kterými pracuje moje aplikace to je jedno
                     .fallbackToDestructiveMigration()
-                    //.openHelperFactory(factory) //should add encryption, but doesn't work
+                    //.openHelperFactory(factory) //mělo by přidávat šifrování databáze, ale zpúsobí že je databáze pořát zavřená a když se aplikace pokusí nahrát data, tak spadne
                     .build()
                 INSTANCE = instance
                 return instance

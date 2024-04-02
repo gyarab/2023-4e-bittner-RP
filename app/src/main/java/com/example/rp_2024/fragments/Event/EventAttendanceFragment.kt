@@ -14,7 +14,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentEventAttendanceBinding
 
 
-
+//adapter se seznamem členú a jejich účastí v recycler view
 class EventAttendanceFragment : Fragment() {
     private var listBinding: FragmentEventAttendanceBinding? = null
 

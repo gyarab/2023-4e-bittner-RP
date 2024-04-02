@@ -9,7 +9,7 @@ import com.example.rp_2024.databaseStuff.Ingredient
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.IngredientCustomRowBinding
 
-
+//adapter pro seznam ingrediencí
 class IngredientListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<IngredientListAdapter.MyViewHolder>() {
 
     private var ingredientList = emptyList<Ingredient>()
@@ -37,6 +37,8 @@ class IngredientListAdapter(private val viewModel : MyViewModel): RecyclerView.A
 
                     setData(ingredientList.minus(ingredientList[position]))
                 }
+
+                //naviguje na fragment pro přidání ingredience, ale s argumentem vybrané ingredience, tím se akce změní na upravení ingredience
                 binding.edit.setOnClickListener{
 
                     val action = IngredientListFragmentDirections.actionListFragmentToAddFragment(ingredientList[position])

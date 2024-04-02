@@ -17,7 +17,8 @@ import com.example.rp_2024.databinding.FragmentDishAddBinding
 import com.example.rp_2024.databinding.FragmentDishAddIngredientDialogBinding
 import com.example.rp_2024.databinding.FragmentDishAlertDialogBinding
 
-
+//fragment na úpravu jídel
+//obsahuje recycler view se všemi řádky receptu pro toto jídlo
 class DishAddFragment : Fragment() {
 
 
@@ -53,7 +54,8 @@ class DishAddFragment : Fragment() {
         recycler.adapter = adapter
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
-
+        //přidání ingredience do receptu
+        //zobrazí dialog se všemi ingrediencemi v recyclerView a po kliknutí na jednu dialog zavře a přidá jí do receptu
         binding.add.setOnClickListener{
             val builder = AlertDialog.Builder(context)
 
@@ -64,6 +66,7 @@ class DishAddFragment : Fragment() {
             builder.setNegativeButton("zrušit"){ dialogInterface, i ->
                 dialogInterface.dismiss()
             }
+            //objekt shower předá adapteru, aby mohl dialog zavřít po vybrání jednoho řádku
             val shower: AlertDialog = builder.show()
 
             val adapter = AddIngredientListAdapter(viewModel, dish!!, shower)
@@ -74,6 +77,7 @@ class DishAddFragment : Fragment() {
 
         }
 
+        //naviguje zpět na seznam jídel
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }

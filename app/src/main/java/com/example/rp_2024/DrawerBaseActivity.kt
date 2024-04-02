@@ -11,6 +11,8 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 
+//aktivita implementující drop down menu
+//všechny aktivity v aplikaci jsou jejím potomkem, takže na každé obrazovce je v levo navigační menu
 open class DrawerBaseActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout

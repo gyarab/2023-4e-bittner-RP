@@ -13,7 +13,7 @@ import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentIngredientListBinding
 
-
+//fragment se seznamem ingrediencí v recycler view
 
 class IngredientListFragment : Fragment() {
     private var listBinding: FragmentIngredientListBinding? = null
@@ -35,12 +35,13 @@ class IngredientListFragment : Fragment() {
 
 
 
+        //naviguje na fragment na přidání ingredience
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.action_listFragment_to_addFragment, null)
         }
 
 
-
+        //nastavuje data adapteru pokaždé, když se v databázi změní
         viewModel.getIngredientsOrderedByNameLive.observe(viewLifecycleOwner, Observer{ ingredient ->
             adapter.setData(ingredient)
         })

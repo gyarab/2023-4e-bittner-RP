@@ -15,7 +15,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentEventAddDishDialogBinding
 import com.example.rp_2024.databinding.FragmentEventDishListBinding
 
-
+//fragment se seznamem jídel plánovaných pro tuto akci v recycler view
 class EventDishListFragment : Fragment() {
     private var listBinding: FragmentEventDishListBinding? = null
 
@@ -49,6 +49,9 @@ class EventDishListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+
+        //přidání jídla
+        //zobrazí dialog se všemi jídli v recycler view, uživatel si vybere
         binding.floatingActionButton.setOnClickListener{
             val dialogBinding = FragmentEventAddDishDialogBinding.inflate(inflater, container, false)
             val builder = AlertDialog.Builder(context)

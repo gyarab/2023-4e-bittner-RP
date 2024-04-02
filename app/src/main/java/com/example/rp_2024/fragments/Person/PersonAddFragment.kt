@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 
-
+//fragment na přidání, nebo upravení člena
 class PersonAddFragment : Fragment() {
 
 
@@ -45,18 +45,19 @@ class PersonAddFragment : Fragment() {
 
         var editedPersonId = -1
 
+        //pokud dostal fragment za argument ne null objekt zavolá metodu writePersonInfo, která vyplní do layoutu informace o upravované osobě
         if(arguments != null){
             if(PersonAddFragmentArgs.fromBundle(requireArguments()).currentPerson != null){
                 editedPersonId = writePersonInfo(binding)
             }
         }
 
-
+        //efektivně zvětší touchtarget pro check box
         binding.isiclayout.setOnClickListener{
             binding.isic.isChecked = binding.isic.isChecked.not()
         }
 
-
+        //uloží data a naviguje zpět na seznam členů
         binding.button.setOnClickListener{
 
                 upsertData(binding, editedPersonId)
@@ -64,6 +65,7 @@ class PersonAddFragment : Fragment() {
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
 
+        //naviguje zpět na seznam bez uložení dat
         binding.floatingActionButton.setOnClickListener{
             findNavController().navigate(R.id.action_addFragment_to_listFragment)
         }
@@ -73,6 +75,7 @@ class PersonAddFragment : Fragment() {
         return binding.root
     }
 
+    //napíše do layoutu data upravované osoby
     private fun writePersonInfo(binding: FragmentPersonAddBinding): Int {
 
             val p: Person = arguments.let { PersonAddFragmentArgs.fromBundle(it!!).currentPerson!! }
@@ -113,6 +116,7 @@ class PersonAddFragment : Fragment() {
 
     }
 
+    //nahraje data do databáze
     @SuppressLint("SimpleDateFormat")
     private fun upsertData(binding: FragmentPersonAddBinding, editedPersonId: Int){
         val name = binding.name.text.toString().lowercase()
@@ -146,6 +150,7 @@ class PersonAddFragment : Fragment() {
 
         val unixTime = date.time
 
+        //převede status ze spinneru na číslo
         var stat = 0
         when (status){
             "dítě" -> stat = 0
@@ -156,7 +161,8 @@ class PersonAddFragment : Fragment() {
 
         val person = Person(0, name, surname, stat, alias, unixTime, -1, -1, email, phone, note, isic)
 
-        //uloz matku a otce
+        //uloží rodiče, pokud najde osobu se stejným jménem i příjmením jako rodič, nastaví jen její id
+        //matku a otce ukládá zároveň pomocí coroutines
         runBlocking {
             val mother = launch {
                 if (mName.isEmpty() && mSurname.isEmpty()) {
@@ -190,6 +196,7 @@ class PersonAddFragment : Fragment() {
                     person.fatherId = viewModel.getByNameAndSurname(fName, fSurname)[0].id
                 }
             }
+            //počká až jsou oba uložení
             mother.join()
             father.join()
             if(editedPersonId != -1){

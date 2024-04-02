@@ -14,7 +14,8 @@ import com.example.rp_2024.databaseStuff.EventShoppingLine
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentEventShoppingListBinding
 
-
+//fragment s nákupním seznamem v recycler view
+//nový seznam se vygeneruje po stlačení tlačítka
 class EventShoppingListFragment : Fragment() {
     private var listBinding: FragmentEventShoppingListBinding? = null
 
@@ -58,6 +59,7 @@ class EventShoppingListFragment : Fragment() {
             adapter.setData(line)
         })
 
+        //vytvoří nový seznam podle aktuálních dat v databázi
         binding.reload.setOnClickListener {
             viewModel.deleteEventShoppingLines(event.id)
 

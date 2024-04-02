@@ -10,7 +10,8 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databinding.EventAttendanceCustomRowBinding
 
-
+//adapter pro seznam účasti na akci
+//pracuje s mapou entit
 class EventAttendanceAdapter(private val viewModel : MyViewModel, private val event: Event): RecyclerView.Adapter<EventAttendanceAdapter.MyViewHolder>() {
 
      var map: Map<Person, EventAttendance?> = emptyMap()
@@ -62,6 +63,7 @@ class EventAttendanceAdapter(private val viewModel : MyViewModel, private val ev
                     }
                 }
 
+                //každá zmněna v účasti se ihned uloží
                 binding.radioYes.setOnClickListener{
 
                         var e :EventAttendance? = this.second
@@ -84,6 +86,8 @@ class EventAttendanceAdapter(private val viewModel : MyViewModel, private val ev
                         viewModel.upsertEventAttendance(e!!)
 
                 }
+
+                //to že nevíme jestli člen jede je indikováno že v databázi řádek s jeho id vúbec není
                 binding.radio.setOnClickListener{
                     if(this.second != null) {
                         viewModel.deleteEventAttendance(this.second!!)

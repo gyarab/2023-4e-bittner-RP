@@ -9,7 +9,7 @@ import com.example.rp_2024.databaseStuff.EventDish
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.EventDishCustomRowBinding
 
-
+//adapter pro zobrazení jídel plánovaných na jednu akci
 class EventDishListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<EventDishListAdapter.MyViewHolder>() {
 
     var map: Map<EventDish, Dish> = emptyMap()

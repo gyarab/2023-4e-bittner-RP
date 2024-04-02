@@ -11,7 +11,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databinding.EventAddPersonCustomRowBinding
 
-
+//adapter pro přidání organizátora, nebo zodpovědného
 class EventAddPersonListAdapter(private val viewModel : MyViewModel, private val event: Event, private val type: Int, private val shower: AlertDialog): RecyclerView.Adapter<EventAddPersonListAdapter.MyViewHolder>() {
 
     private var list = emptyList<Person>()

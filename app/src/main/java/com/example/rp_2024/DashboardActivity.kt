@@ -10,6 +10,8 @@ import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databaseStuff.RecipeLine
 import com.example.rp_2024.databinding.ActivityDashboardBinding
 
+//prázdná aktivita
+//dočasně slouží k nahrání testovacích dat do databáze
 class DashboardActivity : DrawerBaseActivity() {
 
     private lateinit var activityDashboardBinding : ActivityDashboardBinding

@@ -13,7 +13,7 @@ import com.example.rp_2024.R
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentPersonListBinding
 
-
+//fragment se seznamem členú v recycler view
 class PersonListFragment : Fragment() {
     private var listBinding: FragmentPersonListBinding? = null
 

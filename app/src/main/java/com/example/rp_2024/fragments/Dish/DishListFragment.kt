@@ -15,7 +15,7 @@ import com.example.rp_2024.databinding.FragmentDishAlertDialogBinding
 import com.example.rp_2024.databinding.FragmentDishListBinding
 
 
-
+//fragment se seznamem jídel
 class DishListFragment : Fragment() {
     private var listBinding: FragmentDishListBinding? = null
 
@@ -35,7 +35,9 @@ class DishListFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
 
-
+        //tlačítko pro přidání jídla
+        //nejdřív zobrazí dialog, kam uživatel vyplní název
+        //a pak vytvoří objekt Dish s tím názvem a s ním, jako argumentem, naviguje na fragment DishAddFragment, který ve skutečnosti slouží pouze k upravování jídel
         binding.floatingActionButton.setOnClickListener{
             val dialogBinding = FragmentDishAlertDialogBinding.inflate(inflater, container, false)
             val builder = AlertDialog.Builder(context)

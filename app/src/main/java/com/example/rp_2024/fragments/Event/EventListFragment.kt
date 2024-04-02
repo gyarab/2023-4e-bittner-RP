@@ -15,7 +15,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentDishAlertDialogBinding
 import com.example.rp_2024.databinding.FragmentEventListBinding
 
-
+//fragment se seznamem všech akcí v recycler view
 class EventListFragment : Fragment() {
     private var listBinding: FragmentEventListBinding? = null
 
@@ -35,7 +35,7 @@ class EventListFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
 
-
+        //zobrazí dialog, načte od uživatele jméno akce a tu vytvoří
         binding.floatingActionButton.setOnClickListener{
             val dialogBinding = FragmentDishAlertDialogBinding.inflate(inflater, container, false)
             val builder = AlertDialog.Builder(context)

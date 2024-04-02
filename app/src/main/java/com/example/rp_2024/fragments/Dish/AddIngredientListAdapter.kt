@@ -12,6 +12,7 @@ import com.example.rp_2024.databaseStuff.RecipeLine
 import com.example.rp_2024.databinding.AddIngredientCustomRowBinding
 
 
+//adapter pro seznam všech ingrediencí, při přidávání ingredience do recptu jídla
 class AddIngredientListAdapter(private val viewModel : MyViewModel, private val dish: Dish, private val shower: AlertDialog): RecyclerView.Adapter<AddIngredientListAdapter.MyViewHolder>() {
 
     private var ingredientList = emptyList<Ingredient>()
@@ -36,6 +37,7 @@ class AddIngredientListAdapter(private val viewModel : MyViewModel, private val 
                 binding.name.text = name
                 binding.note.text = note
 
+                //přidá řádku do databáze a zavře dialog, ve kterém je
                 binding.layout.setOnClickListener{
                     val lines = viewModel.getRecipeLinesForDishByName(dish.id)
                     var containsIngredient = false
@@ -49,6 +51,7 @@ class AddIngredientListAdapter(private val viewModel : MyViewModel, private val 
                     }else{
                         //Toast.makeText(context, "ingredience už v receptu je", Toast.LENGTH_LONG).show()
                     }
+                    //zavře dialog, který dostal jako argument
                     shower.dismiss()
                 }
             }

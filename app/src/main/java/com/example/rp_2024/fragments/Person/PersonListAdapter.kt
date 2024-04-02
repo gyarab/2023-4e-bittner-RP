@@ -9,7 +9,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databaseStuff.Person
 import com.example.rp_2024.databinding.PersonCustomRowBinding
 
-
+//adapter pro seznam členů
 class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<PersonListAdapter.MyViewHolder>() {
 
     private var personList = emptyList<Person>()
@@ -36,6 +36,7 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
                     binding.alias.layoutParams.height = 50
                 }
 
+                //převede číslo z databáze na odpovídající status
                 val s = status
                 binding.status.text = when(s){
                     0 -> "dítě"
@@ -44,6 +45,8 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
                     3 -> "kmeňák"
                     else -> "neznámé"
                 }
+
+                //smaže z databáze člena a rodiče, ale jen pokud nejsou rodiči někoho jiného
                 binding.delete.setOnClickListener{
                     val mId = motherId
                     val fId = fatherId
@@ -77,11 +80,14 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
 
                     setData(personList.minus(personList[position]))
                 }
+
+
+                //naviguje na fragment PersonAddFragment
                 binding.edit.setOnClickListener{
                     val action = PersonListFragmentDirections.actionListFragmentToAddFragment(personList[position])
                     holder.itemView.findNavController().navigate(action)
                 }
-            } //vyplní data z personList do person_custom_row
+            }
         }
     }
 

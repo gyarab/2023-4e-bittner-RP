@@ -14,7 +14,7 @@ import com.example.rp_2024.databaseStuff.Ingredient
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.FragmentIngredientAddBinding
 
-
+//fragment pro přidání, nebo upravení ingredience
 class IngredientAddFragment : Fragment() {
 
 

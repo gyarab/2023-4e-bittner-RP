@@ -10,7 +10,7 @@ import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databaseStuff.RecipeLine
 import com.example.rp_2024.databinding.DishCustomRowBinding
 
-
+//adapter pro seznam jídel
 class DishListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<DishListAdapter.MyViewHolder>() {
 
     private var dishList = emptyList<Dish>()
@@ -40,6 +40,7 @@ class DishListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter
                         viewModel.deleteRecipeLine(l)
                     }
                 }
+                //navihuje na fragment na uparvení jídla DishAddFragment
                 binding.edit.setOnClickListener{
                     val action = DishListFragmentDirections.actionListFragmentToAddFragment(dishList[position])
                     holder.itemView.findNavController().navigate(action)

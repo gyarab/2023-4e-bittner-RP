@@ -2,6 +2,7 @@ package com.example.rp_2024.databaseStuff
 
 import androidx.lifecycle.LiveData
 
+//volá metody MyDao pro přístup k databázi
 class MyRepository(private val myDao: MyDao) {
 
 

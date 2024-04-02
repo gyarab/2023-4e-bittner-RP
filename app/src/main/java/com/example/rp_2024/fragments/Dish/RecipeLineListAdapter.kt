@@ -13,7 +13,7 @@ import com.example.rp_2024.databaseStuff.RecipeLine
 import com.example.rp_2024.databinding.FragmentIngredientAlertDialogBinding
 import com.example.rp_2024.databinding.RecipeLineCustomRowBinding
 
-
+//adapter pro řádky receptu jednoho jídla
 class RecipeLineListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapter<RecipeLineListAdapter.MyViewHolder>() {
 
     private var linesList = emptyList<RecipeLine>()
@@ -53,6 +53,7 @@ class RecipeLineListAdapter(private val viewModel : MyViewModel): RecyclerView.A
         }
     }
 
+    //pro upravení řádku vytvoří dialog, kde uživatel múže změnit množství a jednotku množství
     fun edit(ingredient: Ingredient, line: RecipeLine){
         val builder = AlertDialog.Builder(parent.context)
 

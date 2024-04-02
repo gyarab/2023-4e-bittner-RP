@@ -5,14 +5,14 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-
+//v tomto souboru jsou definovány všechny entity Room databáze, a tedy i tabulky SQLite databáze pod ní
 @Entity @Parcelize
 data class Person(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
     var name: String,
     var surname: String,
-    var status: Int,    //0 - dite, 1 - instruktor, 2 - vedouci, 3 - kmenak, 4 - rodic
+    var status: Int,    //0 - díťe, 1 - instruktor, 2 - vedoucí, 3 - kmeňák, 4 - rodič
     var alias: String,
     var birthdate: Long,
     var fatherId: Int,

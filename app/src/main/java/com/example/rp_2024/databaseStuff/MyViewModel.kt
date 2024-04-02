@@ -7,7 +7,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+//volá metody MyRepository pro přístup k databázi
+//pro suspend metody vytváří coroutine scope, umožňuje tím efektivnější ukládání a mazání, prakticky běží ve vedlejšším vlákně
 class MyViewModel(application: Application): AndroidViewModel(application){
     val getAllOrderedByName: LiveData<List<Person>>
     val getAllOrderedBySurname: LiveData<List<Person>>

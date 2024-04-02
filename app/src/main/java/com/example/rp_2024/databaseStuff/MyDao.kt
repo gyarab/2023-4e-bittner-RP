@@ -6,13 +6,15 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 
-
+//metody nejnižší úrovně sloužící k přístupu do databáze
 @Dao
 interface MyDao {
 
+    //upsert přidá řádek, pokud v tabulce už není řádek se stejným primárním klíčem, pak ho updatuje
     @Upsert
     suspend fun upsertPerson(person: Person)
 
+    //vymaže řádek, podle primary key
     @Delete
     suspend fun deletePerson(person: Person)
 
@@ -57,8 +59,12 @@ interface MyDao {
     @Delete
     suspend fun deleteEventShoppingLine(line: EventShoppingLine)
 
+    //provede SQLite querry
     @Query("DELETE from EventShoppingLine WHERE eventId=:id")
     abstract fun deleteEventShoppingLines(id: Int)
+
+    //provede SQLite querry a vrátí výsledek v podobě Objektu, který má metoda jako návratovou hodnotu
+    //správnost querry se kontroluje při kompilaci
     @Query("SELECT * FROM dish ORDER BY name")
     fun getDishesOrderedByNameLive(): LiveData<List<Dish>>
 
@@ -77,6 +83,7 @@ interface MyDao {
     @Query("SELECT * FROM ingredient ORDER BY name")
     fun getIngredientsOrderedByName(): List<Ingredient>
 
+    //metody getAll... bez konkrétní entity v názvu vrací objekty Person, dělal jsem je první a pak jsem je nějak nepřejmenoval
     @Query("SELECT * FROM person WHERE status<4 ORDER BY name ASC")
     fun getAllOrderedByName(): LiveData<List<Person>>
 

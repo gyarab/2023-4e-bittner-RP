@@ -11,7 +11,7 @@ import com.example.rp_2024.databaseStuff.EventDish
 import com.example.rp_2024.databaseStuff.MyViewModel
 import com.example.rp_2024.databinding.EventAddDishCustomRowBinding
 
-
+//adapter pro přidání jídla k výpravě
 class EventAddDishListAdapter(private val viewModel : MyViewModel, private val event: Event, private val shower: AlertDialog): RecyclerView.Adapter<EventAddDishListAdapter.MyViewHolder>() {
 
     var list: List<Dish> = emptyList()
@@ -35,6 +35,7 @@ class EventAddDishListAdapter(private val viewModel : MyViewModel, private val e
 
                 binding.layout.setOnClickListener{
                     viewModel.upsertEventDish(EventDish(0, event.id, this.id))
+                    //zavře dialog, který dostal jako argument a ve kterém se recycler view nachází
                     shower.dismiss()
                 }
             }
