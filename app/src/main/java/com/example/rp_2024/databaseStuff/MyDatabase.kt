@@ -8,7 +8,9 @@ import net.zetetic.database.sqlcipher.SupportOpenHelperFactory
 import java.nio.charset.StandardCharsets
 
 @Database(
-    entities = [Person::class, Ingredient::class, Dish::class, RecipeLine::class, Event::class, EventAttendance::class, EventDish::class, EventShoppingLine::class],
+    entities = [Person::class, Ingredient::class, Dish::class,
+        RecipeLine::class, Event::class, EventAttendance::class,
+        EventDish::class, EventShoppingLine::class],
     version = 11,
     exportSchema = true,
 )
@@ -29,19 +31,6 @@ abstract class MyDatabase: RoomDatabase() {
                     return tempInstance
                 }
             }
-            //val userPassphrase = "1946258375461295".toCharArray() // Replace with your passphrase
-            //val passphrase = SQLiteDatabase.getBytes(userPassphrase)
-            //val state = SQLCipherUtils.getDatabaseState(context, "my_database")
-
-/*
-            if (state == SQLCipherUtils.State.UNENCRYPTED) {
-                SQLCipherUtils.encrypt(
-                    context,
-                    "my_database",
-                    passphrase
-                )
-            }    */
-
 
             System.loadLibrary("sqlcipher")
             val password = "Password1!"

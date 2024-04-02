@@ -40,6 +40,7 @@ class PersonListFragment : Fragment() {
 
 
 
+
         viewModel.getAllOrderedByName.observe(viewLifecycleOwner, Observer{person ->
             adapter.setData(person)
         })

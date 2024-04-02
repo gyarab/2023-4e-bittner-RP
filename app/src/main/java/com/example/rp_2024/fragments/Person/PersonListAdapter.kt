@@ -81,7 +81,7 @@ class PersonListAdapter(private val viewModel : MyViewModel): RecyclerView.Adapt
                     val action = PersonListFragmentDirections.actionListFragmentToAddFragment(personList[position])
                     holder.itemView.findNavController().navigate(action)
                 }
-            }
+            } //vyplní data z personList do person_custom_row
         }
     }
 

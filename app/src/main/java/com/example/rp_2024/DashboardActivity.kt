@@ -18,7 +18,7 @@ class DashboardActivity : DrawerBaseActivity() {
         activityDashboardBinding = ActivityDashboardBinding.inflate(layoutInflater)
 
         setContentView(activityDashboardBinding.root)
-        allocateActivityTitle("any activity")
+        allocateActivityTitle("upload data")
 
         val viewModel = ViewModelProvider(this)[MyViewModel::class.java]
 
